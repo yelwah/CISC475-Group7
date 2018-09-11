@@ -1,5 +1,4 @@
 # CISC475-Group7
-Kevin Doak kdoak
 
 Creating Local Repository
 1) "cd" into where you want it
