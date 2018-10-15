@@ -6,10 +6,12 @@ import 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { QuestionTableComponent } from './question-table/question-table.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QuestionTableComponent
   ],
   imports: [
     BrowserModule,
