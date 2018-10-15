@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import 'hammerjs';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { QuestionTableComponent } from './question-table/question-table.component';
+
+import { MatTableModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+
+import { TableService } from './table-service.service';
 
 @NgModule({
   declarations: [
@@ -15,9 +17,11 @@ import { QuestionTableComponent } from './question-table/question-table.componen
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [TableService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
