@@ -1,11 +1,4 @@
 # CISC475-Group7
-<<<<<<< HEAD
-=======
-Kevin Doak kdoak
-<<<<<<< HEAD
-Olivia Liepa oliepa
-=======
->>>>>>> master
 
 Creating Local Repository
 1) "cd" into where you want it
@@ -21,4 +14,7 @@ Update Branch
 2) "git pull"
 3) "git checkout <your branch>"
 4) "git merge master"
->>>>>>> 26d5f646a4f7448d1241cbc2cdefa6bbdd7f21c3
+
+Updating your Node Dependencies then running:
+npm i
+npm start
