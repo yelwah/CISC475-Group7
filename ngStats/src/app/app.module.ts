@@ -1,14 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
+import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { QuestionTableComponent } from './question-table/question-table.component';
-
-import { MatTableModule } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
-
-import { TableService } from './table-service.service';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
+import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, 
+  MatSortModule, MatTableModule } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -18,10 +16,14 @@ import { TableService } from './table-service.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    MatInputModule,
     MatTableModule,
-    HttpClientModule
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
-  providers: [TableService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
