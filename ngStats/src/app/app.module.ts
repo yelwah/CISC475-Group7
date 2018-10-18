@@ -15,6 +15,8 @@ import { MatTableModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 
 import { TableService } from './table-service.service';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { TopbarComponent } from './topbar/topbar.component';
 
 
 
@@ -23,6 +25,8 @@ import { TableService } from './table-service.service';
     AppComponent,
     BarGraphComponent,
     QuestionTableComponent,
+    SidebarComponent,
+    TopbarComponent,
   ],
   imports: [
     ChartsModule,
