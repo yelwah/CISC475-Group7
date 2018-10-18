@@ -4,14 +4,14 @@ body {
      margin: 0;
      background: #F2F2F2;
      font-family: sans-serif;
-     height: 98vh;
-     width: 98.5vw;
+     /*height: 100vh;*/
 }
 
 #barleft {
     display: grid;
     grid-template-columns: 70px auto;
-    height: 99%;
+    height: 100%;
+    position: fixed;
 }
 #bartop {
     display: grid;
