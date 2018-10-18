@@ -1,3 +1,13 @@
 body{
     padding: 20px;
 }
+#graphContainer{
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 50%;
+}
+#tableContainer{
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 100%;
+}
