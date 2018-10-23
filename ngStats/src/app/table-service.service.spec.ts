@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { TableServiceService } from './table-service.service';
+import { TableService } from './table-service.service';
 
-describe('TableServiceService', () => {
+describe('TableServiceS', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TableServiceService]
+      providers: [TableService]
     });
   });
 
-  it('should be created', inject([TableServiceService], (service: TableServiceService) => {
+  it('should be created', inject([TableService], (service: TableService) => {
     expect(service).toBeTruthy();
   }));
 });
