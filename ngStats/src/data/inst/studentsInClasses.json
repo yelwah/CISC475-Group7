@@ -1,0 +1,11 @@
+{
+    "studentInClass":[
+        {
+            "studentID": "pname@udel.edu",
+            "courseID": 1,
+            "studentInClassID": 1,
+            "meanGrade": 100,
+            "medianGrade": 100
+        }
+    ]
+}
