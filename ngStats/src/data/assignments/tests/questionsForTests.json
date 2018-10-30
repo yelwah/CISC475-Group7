@@ -1,0 +1,26 @@
+{
+    "multiChoice":[
+        {
+            "testID": 1,
+            "questionID": 1,
+            "optional": 0,
+            "question": "What is the answer",
+            "answer": "b",
+            "aCount": "0",
+            "bCount": "1",
+            "cCount": "0",
+            "dCount": "0",
+            "eCount": "0"
+        }
+    ],
+    "programming":[
+        {
+            "testID": 2,
+            "questionID": 1,
+            "optional": 0,
+            "question": "What is the answer",
+            "correct": 1,
+            "incorrect": 0
+        }
+    ]
+}

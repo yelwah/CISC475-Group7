@@ -1,0 +1,10 @@
+{
+    "student":[
+        {
+            "name": "Student Name",
+            "email": "pname@udel.edu",
+            "majorDep": "Cisc",
+            "yearOfGrad": "2019"
+        }
+    ]
+}

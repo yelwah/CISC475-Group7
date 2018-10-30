@@ -15,6 +15,14 @@ import { MatTableModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 
 import { TableService } from './table-service.service';
+import { AppRoutingModule } from './app-routing.module';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+import { MaterialModule } from './material.module';
+import { FilterComponent } from './filter/filter.component';
 
 
 
@@ -23,13 +31,19 @@ import { TableService } from './table-service.service';
     AppComponent,
     BarGraphComponent,
     QuestionTableComponent,
+    FilterComponent
   ],
   imports: [
     ChartsModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    MaterialModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [TableService],
   bootstrap: [AppComponent]

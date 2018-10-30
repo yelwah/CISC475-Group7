@@ -7,7 +7,7 @@ import { Question } from "../question.model";
 @Component({
   selector: 'question-table',
   templateUrl: './question-table.component.html',
-  styleUrls: ['./question-table.component.css']
+  styleUrls: ['./question-table.component.scss']
 })
 export class QuestionTableComponent implements OnInit {
 
