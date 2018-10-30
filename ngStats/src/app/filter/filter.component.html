@@ -1,18 +1,15 @@
 <div class="container">
-
-
-
-    <mat-card class="card">
+    <mat-card class="card" style="font-family:'Trebuchet MS', sans-serif;">
         <div class="row">
             <div class="filterLeftSide col">
 
                 <div class="filterExamIntructor">
                     <mat-button-toggle-group #group="matButtonToggleGroup">
                         <mat-button-toggle value="allExams">
-                            All exams
+                            All Exams
                         </mat-button-toggle>
                         <mat-button-toggle value="myExams">
-                            Only my exams
+                            Only My Exams
                         </mat-button-toggle>
                     </mat-button-toggle-group>
                 </div>
@@ -20,13 +17,13 @@
                     <div class="titleText">Exam #:</div>
                     <mat-radio-group class="example-radio-group" [(ngModel)]="selectedExam">
                         <mat-radio-button class="example-radio-button" *ngFor="let exam of exams" [value]="exam">
-                            {{exam}}
+                            {{exam}}&nbsp;&nbsp;
                         </mat-radio-button>
                     </mat-radio-group>
                     <div class="example-selected-value">Your selected exam is: {{selectedExam}}</div>
                 </div>
                 <div class="filterProctoredDate">
-                    Proctored Date
+                    Proctored Date:
                     <div class="filterProctoredDateStart">
                         <mat-form-field>
                             <input matInput [matDatepicker]="pickerStart" placeholder="Choose a date">
@@ -45,19 +42,19 @@
                 </div>
 
                 <div class="filterQType">
-                    Question Type
+                    Question Type:
                     <mat-radio-group>
-                        <mat-radio-button value="questionType1">Multiple Choice</mat-radio-button>
-                        <mat-radio-button value="questionType2">Programming</mat-radio-button>
+                        <mat-radio-button value="questionType1">Multiple Choice&nbsp;&nbsp;</mat-radio-button>
+                        <mat-radio-button value="questionType2">Programming&nbsp;&nbsp;</mat-radio-button>
                     </mat-radio-group>
                 </div>
 
                 <div class="filterQDifficulty">
-                    Question Difficulty
+                    Question Difficulty:
                     <mat-radio-group>
-                        <mat-radio-button value="difficulty1">1</mat-radio-button>
-                        <mat-radio-button value="difficulty2">2</mat-radio-button>
-                        <mat-radio-button value="difficulty3">3</mat-radio-button>
+                        <mat-radio-button value="difficulty1">1&nbsp;&nbsp;</mat-radio-button>
+                        <mat-radio-button value="difficulty2">2&nbsp;&nbsp;</mat-radio-button>
+                        <mat-radio-button value="difficulty3">3&nbsp;&nbsp;</mat-radio-button>
                     </mat-radio-group>
                 </div>
             </div>
@@ -66,19 +63,25 @@
             <!-->right side </!-->
             <div class="filterRightSide col">
                 <div class="filterCognitiveLevel">
-                    Question Cognitive Level
+                    Question Cognitive Level: 
                     <mat-radio-group>
-                        <mat-radio-button value="remembering">Remembering</mat-radio-button>
-                        <mat-radio-button value="analyzing">Analyzing</mat-radio-button>
-                        <mat-radio-button value="applying">Applying</mat-radio-button>
-                        <mat-radio-button value="understanding">Understanding</mat-radio-button>
-                        <mat-radio-button value="evaulating">Evaluating</mat-radio-button>
-                        <mat-radio-button value="creating">Creating</mat-radio-button>
+                        <table style="width:100%">
+                        <tr>
+                        <th><mat-radio-button value="remembering">Remembering</mat-radio-button></th>
+                        <th><mat-radio-button value="analyzing">Analyzing</mat-radio-button></th>
+                        </tr><tr>
+                        <th><mat-radio-button value="applying">Applying</mat-radio-button></th>
+                        <th><mat-radio-button value="understanding">Understanding</mat-radio-button></th>
+                        </tr><tr>
+                        <th><mat-radio-button value="evaulating">Evaluating</mat-radio-button></th>
+                        <th><mat-radio-button value="creating">Creating</mat-radio-button></th>
+                        </tr>
+                        </table>
                     </mat-radio-group>
                 </div>
 
                 <div class="filterTopicPick">
-                    Topics
+                    Topics:
                     <form class="example-form">
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Topic" value="Topics">
