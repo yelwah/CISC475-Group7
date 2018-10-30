@@ -23,6 +23,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { MaterialModule } from './material.module';
 import { FilterComponent } from './filter/filter.component';
+import { ExamSearchComponent } from './exam-search/exam-search.component';
+import { QuestionSearchComponent } from './question-search/question-search.component';
 
 
 
@@ -31,7 +33,9 @@ import { FilterComponent } from './filter/filter.component';
     AppComponent,
     BarGraphComponent,
     QuestionTableComponent,
-    FilterComponent
+    FilterComponent,
+    ExamSearchComponent,
+    QuestionSearchComponent
   ],
   imports: [
     ChartsModule,
