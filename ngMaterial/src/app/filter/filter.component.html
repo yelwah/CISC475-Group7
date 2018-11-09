@@ -6,90 +6,186 @@
         <div class="row">
             <div class="filterLeftSide col">
 
-                <div class="filterExamIntructor">
-                    <mat-button-toggle-group #group="matButtonToggleGroup">
-                        <mat-button-toggle value="allExams">
-                            All exams
-                        </mat-button-toggle>
-                        <mat-button-toggle value="myExams">
-                            Only my exams
-                        </mat-button-toggle>
-                    </mat-button-toggle-group>
-                </div>
-                <div class="filterExamPick">
-                    <div class="titleText">Exam #:</div>
-                    <mat-radio-group class="example-radio-group" [(ngModel)]="selectedExam">
-                        <mat-radio-button class="example-radio-button" *ngFor="let exam of exams" [value]="exam">
-                            {{exam}}
-                        </mat-radio-button>
+                <hr>
+                <div class="filterQType">
+                    Exam:
+                    <br>
+                    <mat-radio-group>
+                        <mat-radio-button value="allExams" class="rbSpace">All Exams</mat-radio-button>
+                        <mat-radio-button value="myExams" class="rbSpace">Only my exams</mat-radio-button>
                     </mat-radio-group>
-                    <div class="example-selected-value">Your selected exam is: {{selectedExam}}</div>
                 </div>
-                <div class="filterProctoredDate">
-                    Proctored Date
-                    <div class="filterProctoredDateStart">
-                        <mat-form-field>
-                            <input matInput [matDatepicker]="pickerStart" placeholder="Choose a date">
-                            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                            <mat-datepicker #pickerStart></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                    through
-                    <div class="filterProctoredDateEnd">
-                        <mat-form-field>
-                            <input matInput [matDatepicker]="pickerEnd" placeholder="Choose a date">
-                            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-                            <mat-datepicker #pickerEnd></mat-datepicker>
-                        </mat-form-field>
-                    </div>
+                <hr>
+                <div class="filterExamPick">
+                    Exam #:
+                    <br>
+                    <mat-radio-group class="example-radio-group" [(ngModel)]="selectedExam">
+                        <mat-radio-button class="example-radio-button rbSpace" *ngFor="let exam of exams" [value]="exam">
+                            {{exam}}
+                            <br>
+                        </mat-radio-button>
+                        <br>
+                    </mat-radio-group>
+                    <!--<div class="example-selected-value">Your selected exam is: {{selectedExam}}</div>-->
                 </div>
+                <hr>
 
                 <div class="filterQType">
-                    Question Type
-                    <mat-radio-group>
-                        <mat-radio-button value="questionType1">Multiple Choice</mat-radio-button>
-                        <mat-radio-button value="questionType2">Programming</mat-radio-button>
+                    Question Type:
+                    <br>
+                    <mat-radio-group [(ngModel)]="selectedType">
+                        <mat-radio-button value="1" class="rbSpace" (click)="filterResults()">Multiple Choice</mat-radio-button>
+                        <mat-radio-button value="2" class="rbSpace" (click)="filterResults()">Programming</mat-radio-button>
                     </mat-radio-group>
+                </div>
+                <hr>
+                <div class="filterQDifficulty">
+                    Question Difficulty:
+                    <br>
+                    <mat-radio-group [(ngModel)]="selectedDifficulty">
+                        <mat-radio-button value="1" class="rbSpace" (click)="filterResults()">1</mat-radio-button>
+                        <mat-radio-button value="2" class="rbSpace" (click)="filterResults()">2</mat-radio-button>
+                        <mat-radio-button value="3" class="rbSpace" (click)="filterResults()">3</mat-radio-button>
+                    </mat-radio-group>
+                    <!--
+                    <div class="example-selected-value">Your selected exam is: {{selectedDifficulty}}
+</div>
+-->
+                    <hr>
                 </div>
 
-                <div class="filterQDifficulty">
-                    Question Difficulty
-                    <mat-radio-group>
-                        <mat-radio-button value="difficulty1">1</mat-radio-button>
-                        <mat-radio-button value="difficulty2">2</mat-radio-button>
-                        <mat-radio-button value="difficulty3">3</mat-radio-button>
-                    </mat-radio-group>
-                </div>
+
             </div>
 
             <br>
+
             <!-->right side </!-->
             <div class="filterRightSide col">
-                <div class="filterCognitiveLevel">
-                    Question Cognitive Level
-                    <mat-radio-group>
-                        <mat-radio-button value="remembering">Remembering</mat-radio-button>
-                        <mat-radio-button value="analyzing">Analyzing</mat-radio-button>
-                        <mat-radio-button value="applying">Applying</mat-radio-button>
-                        <mat-radio-button value="understanding">Understanding</mat-radio-button>
-                        <mat-radio-button value="evaulating">Evaluating</mat-radio-button>
-                        <mat-radio-button value="creating">Creating</mat-radio-button>
-                    </mat-radio-group>
+                <hr>
+                <div class="filterProctoredDate">
+                    Proctored Date Range:
+                    <div class="row">
+                        <div class="filterProctoredDateStart col">
+                            <mat-form-field>
+                                <input matInput class="dateInput" [matDatepicker]="pickerStart" placeholder="Choose a start date" [value]="date.value">
+                                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerStart></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <!--                    {{date.value}}-->
+                        <div class="filterProctoredDateEnd col">
+                            <mat-form-field>
+                                <input matInput class="dateInput" [matDatepicker]="pickerEnd" placeholder="Choose an end date" [value]="date.value">
+                                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerEnd></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
                 </div>
+                <hr>
+
+
+
+                <div class="filterCognitiveLevel">
+                    Question Cognitive Level:
+                    <br>
+                    <mat-radio-group [(ngModel)]="selectedCognitiveLevel">
+                        <div class="row">
+                            <div class="col">
+                                <mat-radio-button (click)="filterResults()" value="1">Remembering</mat-radio-button>
+                            </div>
+                            <div class="col">
+                                <mat-radio-button (click)="filterResults()" value="2">Analyzing</mat-radio-button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-radio-button (click)="filterResults()" value="3">Applying</mat-radio-button>
+                            </div>
+                            <div class="col">
+                                <mat-radio-button (click)="filterResults()" value="4">Understanding</mat-radio-button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-radio-button (click)="filterResults()" value="5">Evaluating</mat-radio-button>
+                            </div>
+                            <div class="col">
+                                <mat-radio-button (click)="filterResults()" value="6">Creating</mat-radio-button>
+                            </div>
+                        </div>
+                    </mat-radio-group>
+                    <hr>
+                </div>
+
+                <hr>
 
                 <div class="filterTopicPick">
                     Topics
                     <form class="example-form">
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Topic" value="Topics">
+                            <input matInput placeholder="Topic" value={{topics}}>
                         </mat-form-field>
                     </form>
                 </div>
 
-                <div class="filterTopicDisplay">
-                    Currently Selected Topics
-                </div>
+                <hr>
             </div>
+        </div>
+
+        <div class="row">
+            <hr>
+            <div class="questionResultsTable col">
+                <br>
+                <b>Questions results:</b>
+                <br>
+
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 resultsTable">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
+
+                    <!-- Exam Column -->
+                    <ng-container matColumnDef="exam">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Exam </th>
+                        <td mat-cell *matCellDef="let element" style="padding-right: 4%;"> {{element.exam}} </td>
+                    </ng-container>
+
+                    <!-- Exam Date Column -->
+                    <ng-container matColumnDef="examDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Exam Date</th>
+                        <td mat-cell *matCellDef="let element"> {{element.examDate}} </td>
+                    </ng-container>
+
+                    <!-- Question Type Column -->
+                    <ng-container matColumnDef="questionType">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Question Type </th>
+                        <td mat-cell *matCellDef="let element"> {{element.questionType}} </td>
+                    </ng-container>
+
+                    <!-- Difficulty Column -->
+                    <ng-container matColumnDef="difficulty">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Difficulty </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.difficulty}} </td>
+                    </ng-container>
+
+                    <!-- Question Cognition Column -->
+                    <ng-container matColumnDef="questionCognitive">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Question Cognition </th>
+                        <td mat-cell *matCellDef="let element"> {{element.questionCognitive}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <!--                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="paginator"></mat-paginator>-->
+            </div>
+
         </div>
     </mat-card>
 </div>
