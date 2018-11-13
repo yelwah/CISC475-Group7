@@ -66,15 +66,16 @@ export class FilterComponent implements OnInit {
     
   constructor() { }
   
-    @ViewChild(MatSort) sort: MatSort;
+    //@ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+   // this.dataSource.sort = this.sort;
             console.log(this.results);
+          console.log(this.dataSource);
 
   }
     
-    
+   /* 
   filterResults() {
       //filter questiontype 1 or 2
       this.results  = Object.assign([], EXAM_DATA);
@@ -172,4 +173,4 @@ export class FilterComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.results);
       console.log(this.results);
   }
-}
+*/}
