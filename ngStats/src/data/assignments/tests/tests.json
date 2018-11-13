@@ -1,0 +1,11 @@
+{
+    "test":[
+        {
+            "classID": 1,
+            "testID": 1,
+            "meanScore": 100,
+            "medianScore": 100,
+            "std": 1
+        }
+    ]
+}
