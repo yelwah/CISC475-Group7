@@ -4,8 +4,7 @@ import { Observable } from "rxjs";
 import { DataSource } from "@angular/cdk/collections";
 import { Question } from "../question.model";
 import { DataService } from '../data.service';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-
+import {MatPaginator, MatSort, MatTableDataSource, MatToolTip, TooltipPosition} from '@angular/material';
 
 @Component({
   selector: 'question-table',
@@ -57,12 +56,11 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
   }
   
   
-  over(row){
-  
+  over(row){ 
     console.log(row.position);
     this.highlight(row);
-    //display the row's question
-    
+    this.getData(row)
+    //display the row's question   
   }
     
   results;
@@ -77,11 +75,16 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
   }
   public selectedRowIndex: number = -1;
 
-public highlight(row){
+  public highlight(row){
     this.selectedRowIndex = row.position;
     //console.log('highlight', row.position);
-}
-    
+  }
   
+  public dataFromService = '';
+  
+  public getData(row){
+    //service access here
+    this.dataFromService = row.questionStr;    
+  }
 
 }
