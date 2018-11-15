@@ -2,7 +2,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BarGraphComponent } from './bar-graph/bar-graph.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {MatNativeDateModule} from '@angular/material';
 
 import 'hammerjs';
 
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TableService } from './table-service.service';
 import { AppRoutingModule } from './app-routing.module';
 import {MatSliderModule} from '@angular/material/slider';
+
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -25,6 +27,7 @@ import { MaterialModule } from './material.module';
 import { FilterComponent } from './filter/filter.component';
 import { ExamSearchComponent } from './exam-search/exam-search.component';
 import { QuestionSearchComponent } from './question-search/question-search.component';
+import { GraphFilterComponent } from './graph-filter/graph-filter.component';
 
 
 
@@ -35,7 +38,8 @@ import { QuestionSearchComponent } from './question-search/question-search.compo
     QuestionTableComponent,
     FilterComponent,
     ExamSearchComponent,
-    QuestionSearchComponent
+    QuestionSearchComponent,
+    GraphFilterComponent
   ],
   imports: [
     ChartsModule,
@@ -52,4 +56,5 @@ import { QuestionSearchComponent } from './question-search/question-search.compo
   providers: [TableService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+platformBrowserDynamic().bootstrapModule(AppModule);

@@ -45,10 +45,17 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-row *matRowDef="let row; let even = even; columns: displayedColumns"
+                    [ngClass]="{blue: even, 'highlight': selectedRowIndex == row.position}"
+                    (click)= "onRowClicked(row)" 
+                    (mouseover)='over(row)'>
+                </tr>
+                
             </table>
 
-            <!--                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="paginator"></mat-paginator>-->
+            <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons class="paginator">
+            </mat-paginator>
+
         </div>
 
     </div>
