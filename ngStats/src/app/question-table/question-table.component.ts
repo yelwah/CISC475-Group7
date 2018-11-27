@@ -1,10 +1,10 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TableService} from '../table-service.service';
 import { Observable } from "rxjs";
 import { DataSource } from "@angular/cdk/collections";
 import { Question } from "../question.model";
 import { DataService } from '../data.service';
-import {MatPaginator, MatSort, MatTableDataSource, MatToolTip, TooltipPosition} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, MatTooltip, TooltipPosition} from '@angular/material';
 
 @Component({
   selector: 'question-table',
