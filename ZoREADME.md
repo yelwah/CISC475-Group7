@@ -13,4 +13,49 @@ Generating Components:
 
 Tasks:
 
-    Figure out what design for next question page
+    Question Details page: TODO:
+
+    --DESIGN--
+
+    Card 
+    ###
+    -Question:
+        -Bold
+        -Bigger than the rest
+        -Centered in the middle
+        -In blue?
+
+    -Possible Answers
+        Correct answer highlighted in green
+        Other answer options shown highlighted in red
+
+    fields:
+    -QID:
+    -Topic:
+    -Tags:
+    -Target Difficulty:
+    -SLOs:
+    -Creation Date:
+    -Created By:
+    -Last Modified Date:
+    -Last Modified By:
+    ###
+
+    ###
+    -Question Statistics
+
+    values....
+    -Total Times Question Used:
+    -Total Responses:
+    -Response Rate:
+    -Raw Correct%
+    -Correct % of Respondants:
+    -Average Time Taken:
+    -Discriminant Value:
+
+    Graph to the right---->
+    ###
+
+    Learn to create page
+    Learn to add a card
+    Learn to add components
