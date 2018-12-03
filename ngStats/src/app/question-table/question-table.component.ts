@@ -5,6 +5,7 @@ import { DataSource } from "@angular/cdk/collections";
 import { Question } from "../question.model";
 import { DataService } from '../data.service';
 import {MatPaginator, MatSort, MatTableDataSource, MatTooltip, TooltipPosition} from '@angular/material';
+import { ExamDataService } from '../exam-data.service';
 
 @Component({
   selector: 'question-table',
@@ -13,13 +14,16 @@ import {MatPaginator, MatSort, MatTableDataSource, MatTooltip, TooltipPosition} 
 })
 export class QuestionTableComponent implements OnInit, AfterViewInit {
 
+   QID:string;
+
+  
   //dataSource= new TableDataSource(this.tableService);
    displayedColumns: string[] = ['position', 'exam', 'examDate', 'questionType', 'difficulty','questionCognitive'];
 
   
 
 
-  constructor(private tableService: TableService, private dataService: DataService) {  }
+  constructor(private tableService: TableService, private dataService: DataService, private QIDService: ExamDataService) {  }
     
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,6 +47,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
       console.log("test");
       //doesnt have results
       console.log(this.dataSource);
+      this.QIDService.currentQID.subscribe(QID => this.QID = QID)
       
   }
   
@@ -53,6 +58,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
   onRowClicked(row) {
     console.log('Row clicked: ', row);
     //go to the row
+     
   }
   
   
@@ -60,7 +66,10 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     console.log(row.position);
     this.highlight(row);
     this.getData(row)
-    //display the row's question   
+    //display the row's question  
+    
+    //not sure if this is the best place to put this
+    this.QIDService.changeQID(row.position)
   }
     
   results;
