@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ExamDataService } from './exam-data.service';
+
 
 export interface ExamData {
   position: number;
@@ -28,13 +30,28 @@ const EXAM_DATA: ExamData[] = [
 @Injectable({
   providedIn: 'root'
 })
+
 export class QuestionInfoService {
+  results;
+  rlength;
+  constructor(private QIDService: ExamDataService) { 
+  } 
 
-  selectedQID;
+  ngOnInit() {
+    this.results  = Object.assign([], EXAM_DATA);
+    this.rlength = this.results.length;
 
-  constructor() { }
+  }
   
-  results  = Object.assign([], EXAM_DATA);
-  
-  
+  getQuestion(QID){
+    while (this.rlength--) {
+      if(this.results[this.rlength].position == QID){
+         return this.results[this.rlength]
+      }    
+    }
+  }
+
+  getExam(){
+    return this.results;
+  }
 }
