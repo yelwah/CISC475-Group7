@@ -26,8 +26,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { FilterComponent } from './filter/filter.component';
 import { ExamSearchComponent } from './exam-search/exam-search.component';
-import { QuestionSearchComponent } from './question-search/question-search.component';
 import { GraphFilterComponent } from './graph-filter/graph-filter.component';
+import { QuestionPageComponent } from './question-page/question-page.component';
+import { QuestionDetailsComponent } from './question-details/question-details.component';
+import { QuestionStatsComponent } from './question-stats/question-stats.component';
 
 
 
@@ -38,8 +40,10 @@ import { GraphFilterComponent } from './graph-filter/graph-filter.component';
     QuestionTableComponent,
     FilterComponent,
     ExamSearchComponent,
-    QuestionSearchComponent,
-    GraphFilterComponent
+    GraphFilterComponent,
+    QuestionPageComponent,
+    QuestionDetailsComponent,
+    QuestionStatsComponent
   ],
   imports: [
     ChartsModule,

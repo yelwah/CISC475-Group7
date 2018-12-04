@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ExamSearchComponent } from './exam-search/exam-search.component';
-import { QuestionSearchComponent} from './question-search/question-search.component';
+import { QuestionPageComponent } from './question-page/question-page.component';
 
 const routes: Routes = [
   {
-    path: 'exam-search',
+    path: '',
     component: ExamSearchComponent
-  },
-  {
-    path: 'question-search',
-    component: QuestionSearchComponent
+  },{
+    path: 'question-page',
+    component: QuestionPageComponent    
   }
 ];
 

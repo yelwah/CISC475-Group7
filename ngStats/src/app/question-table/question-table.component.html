@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <hr>
-        <div class="questionResultsTable col">
+        <div class="questionResultsTable col" >
             <br>
             <b>Questions results:</b>
             <br>
@@ -11,7 +11,13 @@
                 <!-- Position Column -->
                 <ng-container matColumnDef="position">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    <td mat-cell *matCellDef="let element"> 
+                       <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                           <a id="hide-bullet" class="nav-link" [routerLink]="['question-page']">{{element.position}}<span class="sr-only">(current)</span></a>
+                        </li>
+                        </ul>
+                          
                 </ng-container>
 
                 <!-- Exam Column -->
@@ -55,7 +61,7 @@
                 
             </table>
 
-            <mat-paginator [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons class="paginator">
+            <mat-paginator id='mat' [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons class="paginator">
             </mat-paginator>
 
         </div>
