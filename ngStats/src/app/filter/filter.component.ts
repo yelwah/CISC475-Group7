@@ -6,9 +6,15 @@ import {MatSort, MatTableDataSource, MatCheckboxModule} from '@angular/material'
 import { QuestionTableComponent } from '../question-table/question-table.component';
 
 import { DataService } from '../data.service';
+import {Observable} from 'rxjs';
+
+import {map, startWith} from 'rxjs/operators';
 
 
 
+export interface User {
+    name: string;
+}
 
 export interface ExamData {
   position: number;
@@ -47,7 +53,7 @@ export class FilterComponent implements OnInit {
     
 
     //ngModel databinds
-    inputText = '';
+    inputText;
     allExams = true;
     checked =false;
     myExams = false;
@@ -69,8 +75,13 @@ export class FilterComponent implements OnInit {
     cognitiveEvaluating = false;
     cognitiveCreating = false;
     topics;
-    filters;
+    filters = new Array();
+    inputResult;
     
+    //for autofill
+    //options;
+    options: User[] = [{name: "Initial Result"}];
+    filteredOptions: Observable<User[]>;
     
     //load exams from list of previous exams, this is used to determine which exams to search for
     exams = ["CS 106 S 17", "CS 106 F 17", "CS 106 S 18"];
@@ -88,16 +99,47 @@ export class FilterComponent implements OnInit {
     
     
     
-  constructor(private dataService: DataService, private questionTable: QuestionTableComponent) { }
+  constructor(private dataService: DataService, private questionTable: QuestionTableComponent) { 
+      
+      var array = new Array<User>();
+      var x = dataService.getTitlesForFilterAutotype();
+      var loopLength = x.length;
+      while(loopLength--){
+         array.push({name: x[loopLength].questionStr}); //this.options.push(x[loopLength].questionStr);
+      }
+      //console.log(array);
+      this.options = array;
+  }
   
+      myControl = new FormControl();
+
     @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    
+    //get all question prompts from data service, add to options
+      
+      //for autofill
+      this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith<string | User>(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name) : this.options.slice())
+      ); 
 
   }
+    //for autofill
+    displayFn(user?: User): string | undefined {
+    return user ? user.name : undefined;
+  }
+
+    //for autofill
+  private _filter(name: string): User[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+  }
     
-  legitFilterResults() {
+  filterResults() {
       //establish array of all filters
       //global
       
@@ -115,7 +157,29 @@ export class FilterComponent implements OnInit {
       else{
           this.filters.push('');
       }*/
-      this.filters.push(this.inputText);
+      //console.log(this.inputText.name);
+     /* if(this.inputText == null){
+          //skip
+      }
+      else{
+         this.filters.push(this.inputText.name);
+      }*/
+      var check : string | undefined;
+
+      if(this.inputText == ''){
+          //console.log(this.inputText);
+          this.filters.push('');
+      }
+      else if(this.inputText === check){
+          //console.log("undefined here");
+          this.filters.push('');
+      }
+      else{
+          //console.log("not empty");
+          this.filters.push(this.inputText.name);
+
+      }
+      //this.filters.push(this.inputText.name);
       
       //get exam owner
       //if wanting to see all exams
@@ -211,49 +275,14 @@ export class FilterComponent implements OnInit {
   }
     
     
-  filterResults() {
-      //console.log("call filter from filter compoennt");
-      //this.dataService.filterResults('2');
-      
-      //then update table
-      //get updated data
-      //this.dataSource = this.dataService.getDataSource();
-      
-      //console.log(this.dataSource); working
-      
-      //refresh table
-      //this.questionTable.updateTable();
-
-      
-      
-      
-  }
-    
+  
     onSubmit(){
         //do the searching, then reset for next search
-     this.legitFilterResults();
-        
-        
-    /*this.inputText = '';
-    this.allExams = true;
-    this.checked =false;
-    this.myExams = false;
-    this.selectedExam = false;
-    //selectedExams;
-    this.examChoice; //true is all exams, false is my exams
-    this.multiChoice = true;
-    this.programming = false;
-    this.difficultyOne = false;
-    this.difficultyTwo = false;
-    this.difficultyThree = false;
-    this.pickerStart = false;
-    this.dateStart = new FormControl(new Date());
-    this.dateEnd   = new FormControl(new Date());
-    this.cognitiveRemembering = false;
-    this.cognitiveAnalyzing = false;
-    this.cognitiveApplying = false;
-    this.cognitiveUnderstanding = false;
-    this.cognitiveEvaluating = false;
-    this.cognitiveCreating = false;*/
+     this.filterResults();
+
+    }
+    
+    placeholder(){
+        //this is placeholder function for click in html
     }
 }

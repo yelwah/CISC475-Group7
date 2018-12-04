@@ -159,9 +159,16 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
 
     public update(){
         this.dataSource = this.getResults();
-
+        if(this.dataSource.data.length == 0){
+            console.log(this.dataSource.data.length);
+            console.log("no results");
+            //show an alert indicating there are no results and give an option to clear the inputs/start over
+            alert('No results');
+        }
+        
         
         //refresh paginator
        this.dataSource.paginator = this.paginator;
+        
     }
 }
