@@ -30,6 +30,8 @@ import { GraphFilterComponent } from './graph-filter/graph-filter.component';
 import { QuestionPageComponent } from './question-page/question-page.component';
 import { QuestionDetailsComponent } from './question-details/question-details.component';
 import { QuestionStatsComponent } from './question-stats/question-stats.component';
+import { QuestionPageGraphFilterComponent } from './question-page-graph-filter/question-page-graph-filter.component';
+import { QuestionPageGraphComponent } from './question-page-graph/question-page-graph.component';
 
 
 
@@ -43,7 +45,9 @@ import { QuestionStatsComponent } from './question-stats/question-stats.componen
     GraphFilterComponent,
     QuestionPageComponent,
     QuestionDetailsComponent,
-    QuestionStatsComponent
+    QuestionStatsComponent,
+    QuestionPageGraphFilterComponent,
+    QuestionPageGraphComponent
   ],
   imports: [
     ChartsModule,
