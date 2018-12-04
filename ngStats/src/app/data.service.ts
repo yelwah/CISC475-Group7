@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { Injectable, OnInit } from '@angular/core';
+=======
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+>>>>>>> 6e4ed9ac32c86fd1c902018d30116c6ab17a5911
 import { Subject } from 'rxjs';
 import {MatSort, MatTableDataSource} from '@angular/material';
 
@@ -64,6 +69,7 @@ export class DataService implements OnInit{
       return this.dataSource = new MatTableDataSource(this.results);
   }
     
+
     //parameters, start with difficulty
   filterResults(filters){
       //filters format should be:

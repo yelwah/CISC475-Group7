@@ -34,7 +34,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
   
 
 
-  constructor(private tableService: TableService, private dataService: DataService, private QIDService: ExamDataService, private changeDetectorRefs: ChangeDetectorRef) {
+  constructor(private dataService: DataService, private QIDService: ExamDataService, private changeDetectorRefs: ChangeDetectorRef) {
       //i commented this out but im not sure what it did, or if it did anything. if issues, uncomment
     //this.dataSource = dataService.results;
   }
