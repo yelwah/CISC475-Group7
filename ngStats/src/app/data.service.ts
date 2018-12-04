@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-
+import { Subject } from 'rxjs';
 import {MatSort, MatTableDataSource} from '@angular/material';
+
+
 
 
 
@@ -41,50 +43,206 @@ export class DataService {
   selectedDifficulty;
 
 
-  constructor() { }
+  dataSourceChange: Subject<any> = new Subject<boolean>();
+  constructor() { 
+    this.dataSourceChange.subscribe((value) => {
+        this.results = value
+    });
+  }
 
   getDataSource(){
       return this.dataSource = new MatTableDataSource(this.results);
   }
     
     //parameters, start with difficulty
-  filterResults(difficuty){
+  filterResults(filters){
+      //filters format should be:
+      //[input, exam ownership (none = 0, all = 1, only own = 2), exam # (false or a string),
+      //question type (0 none, string), difficulty1 (f or true), difficulty2 (f or true),
+      //difficulty3(f or true), datestart, dateend, question cognitive array[remember, analyze, apply, understand, evaluate, create]]
+      
       //do filtering, then update datasource
       
       //reset
       this.results  = Object.assign([], EXAM_DATA);
       
+      //var copy = Object.assign([], EXAM_DATA);
       
-      //filter on difficulty
-      //filter Difficulty 1, 2, or 3
-      var j = this.results.length;
-      if(this.selectedDifficulty == '1'){
-          //remove 2 and 3
-          while (j--) {
-            if(this.results[j].difficulty !== '1'){
-                this.results.splice(j,1);
-            }
+      //loop through every one checking filters, send data back.
+      
+      
+      //filter prompt search
+      var e = this.results.length;
+      var lowercaseFilter = filters[0].toLowerCase();
+      if(filters[0] !== '' || filters[0] !== 'Prompt search'){
+         while(e--){
+          
+          if(!this.results[e].questionStr.toLowerCase().includes(lowercaseFilter)){
+             this.results.splice(e,1);
+             }
+      } 
+      }
+      
+      
+      //dont have exam ownership data yet
+      
+      //filter exam name
+      var f = this.results.length;
+      if(filters[2] ==  ''){
+          //dont remove anything
+      }
+      else{
+         while(f--){
+          //if strings dont match, remove
+          if(this.results[f].exam !== filters[2]){
+              this.results.splice(f,1);
+          }
         } 
       }
-      else if(this.selectedDifficulty == '2'){
-            //remove 1 and 3   
-            while (j--) {
-            if(this.results[j].difficulty !== '2'){
-                this.results.splice(j,1);
-            }    
-        } 
+      
+      //filter question type
+      var g = this.results.length;
+      if(filters[3] !== 0){
+          //can either be multiple choice or programming now
+          if(filters[3] == "multichoice"){
+              while(g--){
+                if(this.results[g].questionType !== "Multiple Choice"){
+                    this.results.splice(g, 1);
+                }  
+              }
+          }
+          else if(filters[3] == "programming"){
+              while(g--){
+                  if(this.results[g].questionType !== "Programming"){
+                    this.results.splice(g, 1);
+                }  
+              }
+          }
       }
-      else if(this.selectedDifficulty == '3'){
-          //remove 1 and 2
-          while (j--) {
-            if(this.results[j].difficulty !== '3'){
-                this.results.splice(j,1);
-            }
-        } 
+      
+      //filter question difficulty
+      //can select more than one difficulty
+      //build array from inputs, then splice anything from results that isnt in that array
+      var newArr = new Array();
+      var d1 = this.results.length;
+      var d2 = this.results.length;
+      var d3 = this.results.length;
+      
+      if(filters[4]){
+          while(d1--){
+              if(this.results[d1].difficulty == '1'){
+                  newArr.push(this.results[d1]);
+                  //console.log("1");
+                  //console.log(newArr);
+              }
+          }
       }
+      
+      if(filters[5]){
+          while(d2--){
+              if(this.results[d2].difficulty == '2'){
+                  newArr.push(this.results[d2]);
+              }
+          }
+      }
+      
+      if(filters[6]){
+          while(d3--){
+              if(this.results[d3].difficulty == '3'){
+                  newArr.push(this.results[d3]);
+              }
+          }
+      }
+      
+      //if there is a new array, make it to be the results
+      if(newArr.length > 0){
+          this.results = newArr;
+      }
+          
+      
+      //filter date range
+      
+      //for all exams, check to see if date of exam is inbetween datestart and dateEnd
+      
+      
+      //filter question cognitive level
+      
+      var newArr2 = new Array();
+      var q1 = this.results.length;
+      var q2 = this.results.length;
+      var q3 = this.results.length;
+      var q4 = this.results.length;
+      var q5 = this.results.length;
+      var q6 = this.results.length;
+      
+      //for remembering, if true, add all remembering to new array and replace results after all 6 are checked
+      if(filters[9]){
+         if(filters[9][0]){
+          while(q1--){
+              if(this.results[q1].questionCognitive == 'Remembering'){
+                  newArr2.push(this.results[q1]);
+              }
+          }
+        } 
+        if(filters[9][1]){
+          while(q2--){
+              if(this.results[q2].questionCognitive == 'Analyzing'){
+                  newArr2.push(this.results[q2]);
+              }
+          }
+        }
+        if(filters[9][2]){
+          while(q3--){
+              if(this.results[q3].questionCognitive == 'Applying'){
+                  newArr2.push(this.results[q3]);
+              }
+          }
+        }
+        if(filters[9][3]){
+          while(q4--){
+              if(this.results[q4].questionCognitive == 'Understanding'){
+                  newArr2.push(this.results[q4]);
+              }
+          }
+        }
+        if(filters[9][4]){
+          while(q5--){
+              if(this.results[q5].questionCognitive == 'Evaluating'){
+                  newArr2.push(this.results[q5]);
+              }
+          }
+        }
+        if(filters[9][5]){
+          while(q6--){
+              if(this.results[q6].questionCognitive == 'Creating'){
+                  newArr2.push(this.results[q6]);
+              }
+          }
+      }
+      
+      //replace results with new results if at least one value is true
+      var cognitiveTruthChecker = filters[9].length;
+      while(cognitiveTruthChecker--){
+          if(filters[9][cognitiveTruthChecker]){
+              this.results = newArr2;
+          }
+      }
+      
+      
+      //filter topics
+      //TODO
+            
+      
       
       this.dataSource = new MatTableDataSource(this.results);
-      console.log(this.results);
+            
+
+      //console.log(this.results);
+      }
   }
+    
+    getResult(){
+        return this.dataSource;
+    }
 
 }

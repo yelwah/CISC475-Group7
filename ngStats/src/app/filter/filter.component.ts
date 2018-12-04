@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import {MatSort, MatTableDataSource} from '@angular/material';
+import {MatSort, MatTableDataSource, MatCheckboxModule} from '@angular/material';
+
+import { QuestionTableComponent } from '../question-table/question-table.component';
+
+import { DataService } from '../data.service';
 
 
 
@@ -15,7 +19,7 @@ export interface ExamData {
   questionCognitive: string;
   questionTags: [];
 }
-
+/*
 const EXAM_DATA: ExamData[] = [
   {position: 1, exam: 'CS 106 F 17', examDate: "10/11/17", questionType: 'Multiple Choice', difficulty: '1', questionCognitive: 'Creating', questionTags: []},
   {position: 2, exam: 'CS 106 F 18', examDate: "10/09/18", questionType: 'Multiple Choice', difficulty: '2', questionCognitive: 'Analyzing', questionTags: []},
@@ -31,145 +35,225 @@ const EXAM_DATA: ExamData[] = [
     {position: 12, exam: 'CS 106 S 17', examDate: "3/18/17", questionType: 'Programming', difficulty: '1', questionCognitive: 'Analyzing', questionTags: []}
 ];
 
-
+*/
 @Component({
+  providers: [QuestionTableComponent],
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
     
-    //results = EXAM_DATA;
-    results  = Object.assign([], EXAM_DATA);
-    /*filtering from inputs*/
-    
-    /*filter by difficulty*/
-    /*loop, for every element, if difficult != input, remove*/
-    //selectedDifficulty difficulty1, difficulty2, difficulty3
-    //needs to update with the page
     
 
+    //ngModel databinds
+    inputText = '';
+    allExams = true;
+    checked =false;
+    myExams = false;
+    selectedExam = false;
+    //selectedExams;
+    examChoice; //true is all exams, false is my exams
+    multiChoice = true;
+    programming = false;
+    difficultyOne = false;
+    difficultyTwo = false;
+    difficultyThree = false;
+    pickerStart = false;
+    dateStart = new FormControl(new Date());
+    dateEnd   = new FormControl(new Date());
+    cognitiveRemembering = false;
+    cognitiveAnalyzing = false;
+    cognitiveApplying = false;
+    cognitiveUnderstanding = false;
+    cognitiveEvaluating = false;
+    cognitiveCreating = false;
+    topics;
+    filters;
     
-    displayedColumns: string[] = ['position', 'exam', 'examDate', 'questionType', 'difficulty','questionCognitive'];
-  dataSource = new MatTableDataSource(this.results);
-
+    
+    //load exams from list of previous exams, this is used to determine which exams to search for
     exams = ["CS 106 S 17", "CS 106 F 17", "CS 106 S 18"];
-    selectedExam;
+    //this is the databinding to the exam # options
+    //selectedExam;
     selectedDifficulty;
     selectedType; //multi choice = 1, programming = 2
-    startDate;
     //endDate;
-    selectedCognitiveLevel; // 1 = remember, 2 = analyzing, 3= applying, 4=understanding, 5 = evaulating, 6 = creating, 
-    topics = "";
+    selectedCognitiveLevel; 
+    // 1 = remember, 2 = analyzing, 3= applying, 4=understanding, 5 = evaulating, 6 = creating, 
+    //topics = "";
+
     
-      date = new FormControl(new Date());
+   
     
-  constructor() { }
+    
+    
+  constructor(private dataService: DataService, private questionTable: QuestionTableComponent) { }
   
     @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
-            console.log(this.results);
+    
 
+  }
+    
+  legitFilterResults() {
+      //establish array of all filters
+      //global
+      
+      //reset filters
+      this.filters = new Array();
+      
+      //get everything selected
+      //for material radiobuttons and checkboxes, .checked returns boolean
+      
+      //get text
+      /*
+      if((this.inputText != '') || (this.inputText != "Prompt search")){
+        this.filters.push(this.inputText);
+      }
+      else{
+          this.filters.push('');
+      }*/
+      this.filters.push(this.inputText);
+      
+      //get exam owner
+      //if wanting to see all exams
+      if(this.examChoice == true){
+        this.filters.push(1);   
+      }
+      //if only wanting to see own exam
+      else if (this.examChoice == false){
+          this.filters.push(2);
+      }
+      else{
+          //wasnt clicked at all
+          this.filters.push(0);
+      }
+
+      
+      //get exam number
+      if(this.selectedExam){
+          this.filters.push(this.selectedExam);
+      }
+      else{
+          //nothing clicked
+          this.filters.push('');
+      }
+      
+      //get question type
+      //multi is t, programming is false
+      if(this.selectedType == true){
+          this.filters.push("multichoice");
+      }
+      else if(this.selectedType == false){
+          //it is programming,
+          this.filters.push("programming");
+      }
+      //need 3rd case, none selected
+      else{
+        this.filters.push(0);
+      }
+      
+      //get exam difficulty
+      //if they are true, look for them; if false, no
+      if(this.difficultyOne){
+        this.filters.push(this.difficultyOne);
+      }
+      else{
+          this.filters.push(false);
+      }
+      if(this.difficultyTwo){
+        this.filters.push(this.difficultyTwo);
+      }
+      else{
+          this.filters.push(false);
+      }
+      if(this.difficultyThree){
+        this.filters.push(this.difficultyThree);
+      }
+      else{
+          this.filters.push(false);
+      }
+      
+      //get date range
+      if(this.dateStart){
+        //start
+        this.filters.push(this.dateStart.value);
+      }
+      else{
+          //shouldnt happen
+          this.filters.push(false);
+      }
+      
+      if(this.dateEnd){
+          //end
+        this.filters.push(this.dateEnd.value);
+      }
+      else{
+          //shouldnt happen
+          this.filters.push(false);
+      }
+      
+      //get cognitive level
+      var cognitiveArray = new Array(this.cognitiveRemembering, this.cognitiveAnalyzing, this.cognitiveApplying, this.cognitiveUnderstanding, this.cognitiveEvaluating, this.cognitiveCreating);
+      //add to array
+      this.filters.push(cognitiveArray);
+      
+      //get topics
+      //TODO
+      //console.log(this.filters);
+      
+      
+      
+      //pass to data service to filter
+      this.dataService.filterResults(this.filters);
   }
     
     
   filterResults() {
-      //filter questiontype 1 or 2
-      this.results  = Object.assign([], EXAM_DATA);
+      //console.log("call filter from filter compoennt");
+      //this.dataService.filterResults('2');
       
-      //second, delete given parameter
-      var i = this.results.length;
-      if(this.selectedType == '1'){
-         while (i--) {
-        if (this.results[i].questionType == 'Programming') { 
-            this.results.splice(i, 1);
-        } 
-       } 
-      }
-      else if(this.selectedType == '2'){
-         while (i--) {
-        if (this.results[i].questionType == 'Multiple Choice') { 
-            this.results.splice(i, 1);
-        } 
-       } 
-      }
+      //then update table
+      //get updated data
+      //this.dataSource = this.dataService.getDataSource();
+      
+      //console.log(this.dataSource); working
+      
+      //refresh table
+      //this.questionTable.updateTable();
+
       
       
-      //filter Difficulty 1, 2, or 3
-      var j = this.results.length;
-      if(this.selectedDifficulty == '1'){
-          //remove 2 and 3
-          while (j--) {
-            if(this.results[j].difficulty !== '1'){
-                this.results.splice(j,1);
-            }
-        } 
-      }
-      else if(this.selectedDifficulty == '2'){
-            //remove 1 and 3   
-            while (j--) {
-            if(this.results[j].difficulty !== '2'){
-                this.results.splice(j,1);
-            }    
-        } 
-      }
-      else if(this.selectedDifficulty == '3'){
-          //remove 1 and 2
-          while (j--) {
-            if(this.results[j].difficulty !== '3'){
-                this.results.splice(j,1);
-            }
-        } 
-      }
       
-      //filter selectedCognitiveLevel 1->6
-      var k = this.results.length;
-      if(this.selectedCognitiveLevel == '1'){
-          while (k--) {
-            if (this.results[k].questionCognitive !== 'Remembering') { 
-            this.results.splice(k, 1);
-            }
-        } 
-      }
-      else if(this.selectedCognitiveLevel == '2'){
-          while (k--) {
-            if (this.results[k].questionCognitive !== 'Analyzing') { 
-            this.results.splice(k, 1);
-            }
-        } 
-      }
-      else if(this.selectedCognitiveLevel == '3'){
-          while (k--) {
-            if (this.results[k].questionCognitive !== 'Applying') { 
-            this.results.splice(k, 1);
-            }
-        } 
-      }
-      else if(this.selectedCognitiveLevel == '4'){
-          while (k--) {
-            if (this.results[k].questionCognitive !== 'Understanding') { 
-            this.results.splice(k, 1);
-            }
-        } 
-      }
-      else if(this.selectedCognitiveLevel == '5'){
-          while (k--) {
-            if (this.results[k].questionCognitive !== 'Evaluating') { 
-            this.results.splice(k, 1);
-            }
-        } 
-      }
-      else if(this.selectedCognitiveLevel == '6'){
-          while (k--) {
-            if (this.results[k].questionCognitive !== 'Creating') { 
-            this.results.splice(k, 1);
-            }
-        } 
-      }
-      
-      this.dataSource = new MatTableDataSource(this.results);
-      console.log(this.results);
   }
+    
+    onSubmit(){
+        //do the searching, then reset for next search
+     this.legitFilterResults();
+        
+        
+    /*this.inputText = '';
+    this.allExams = true;
+    this.checked =false;
+    this.myExams = false;
+    this.selectedExam = false;
+    //selectedExams;
+    this.examChoice; //true is all exams, false is my exams
+    this.multiChoice = true;
+    this.programming = false;
+    this.difficultyOne = false;
+    this.difficultyTwo = false;
+    this.difficultyThree = false;
+    this.pickerStart = false;
+    this.dateStart = new FormControl(new Date());
+    this.dateEnd   = new FormControl(new Date());
+    this.cognitiveRemembering = false;
+    this.cognitiveAnalyzing = false;
+    this.cognitiveApplying = false;
+    this.cognitiveUnderstanding = false;
+    this.cognitiveEvaluating = false;
+    this.cognitiveCreating = false;*/
+    }
 }
