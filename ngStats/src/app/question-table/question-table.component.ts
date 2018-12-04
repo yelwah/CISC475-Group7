@@ -23,7 +23,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
   
 
 
-  constructor(private tableService: TableService, private dataService: DataService, private QIDService: ExamDataService) {  }
+  constructor(private dataService: DataService, private QIDService: ExamDataService) {  }
     
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

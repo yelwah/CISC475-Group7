@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataSource } from "@angular/cdk/collections";
-import { Question } from "../question.model";
 import { QuestionInfoService } from '../question-info.service';
 
 @Component({
@@ -9,10 +7,14 @@ import { QuestionInfoService } from '../question-info.service';
   styleUrls: ['./question-details.component.scss']
 })
 export class QuestionDetailsComponent implements OnInit {
+  
+  QID:string;
+  exam:object;
 
-  constructor(private QInfo: QuestionInfoService) { }
+  constructor(private QInfo: QuestionInfoService) {  }
 
   ngOnInit() {
+    this.exam = this.QInfo.getExam();
   }
 
 }
