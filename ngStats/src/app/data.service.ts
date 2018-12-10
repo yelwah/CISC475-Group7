@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+import { Injectable, OnInit } from '@angular/core';
+=======
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+>>>>>>> 6e4ed9ac32c86fd1c902018d30116c6ab17a5911
 import { Subject } from 'rxjs';
 import {MatSort, MatTableDataSource} from '@angular/material';
 
@@ -37,7 +41,7 @@ const EXAM_DATA: ExamData[] = [
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class DataService implements OnInit{
 
   results  = Object.assign([], EXAM_DATA);
   dataSource = new MatTableDataSource(this.results);
@@ -49,6 +53,16 @@ export class DataService {
     this.dataSourceChange.subscribe((value) => {
         this.results = value
     });
+      
+  }
+    
+    getTitlesForFilterAutotype(){
+        return EXAM_DATA;
+    }
+    
+  ngOnInit() {
+        //this.results  = Object.assign([], EXAM_DATA);
+
   }
 
   getDataSource(){
@@ -239,7 +253,7 @@ export class DataService {
       this.dataSource = new MatTableDataSource(this.results);
             
 
-      //console.log(this.results);
+      console.log(this.results);
       }
   }
     

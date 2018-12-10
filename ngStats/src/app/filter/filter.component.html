@@ -1,15 +1,17 @@
 <div class="container">
-
-
-
     <mat-card class="card">
         <div class="questionPromptTextSearch">
-            <mat-form-field class="form-field">
-                <input matInput type="text" placeholder='Prompt search' [(ngModel)]="inputText">
-                <button mat-button *ngIf="inputText" matSuffix mat-icon-button aria-label="Clear" (click)="inputText=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
+            <form class="example-form">
+                <mat-form-field class="form-field">
+                    <input type="text" placeholder="Prompt Search" aria-label="Prompt" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="inputText">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+
         </div>
         <br>
         <div class="row">
@@ -42,8 +44,8 @@
                     Question Type:
                     <br>
                     <mat-radio-group [(ngModel)]="selectedType">
-                        <mat-radio-button [value]="multiChoice" class="rbSpace" (click)="filterResults()">Multiple Choice</mat-radio-button>
-                        <mat-radio-button [value]="programming" class="rbSpace" (click)="filterResults()">Programming</mat-radio-button>
+                        <mat-radio-button [value]="multiChoice" class="rbSpace" (click)="placeholder()">Multiple Choice</mat-radio-button>
+                        <mat-radio-button [value]="programming" class="rbSpace" (click)="placeholder()">Programming</mat-radio-button>
                     </mat-radio-group>
                 </div>
                 <hr>
@@ -122,7 +124,10 @@
             </div>
         </div>
 
-        <button (click)="onSubmit()">Submit</button>
+        <div class="submissionBtn">
+            <button class="btn btnSize" (click)="onSubmit()">Submit</button>
+        </div>
+
 
 
     </mat-card>
