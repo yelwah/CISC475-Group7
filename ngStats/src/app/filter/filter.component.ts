@@ -1,22 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import {FormControl} from '@angular/forms';
-
 import {MatSort, MatTableDataSource, MatCheckboxModule} from '@angular/material';
-
 import { QuestionTableComponent } from '../question-table/question-table.component';
-
 import { DataService } from '../data.service';
 import {Observable} from 'rxjs';
-
 import {map, startWith} from 'rxjs/operators';
-
+import { Question } from '../Question';
 
 
 export interface User {
     name: string;
 }
 
-export interface ExamData {
+export interface ExamData1 {
   position: number;
   exam: string;
   examDate: string;
@@ -25,33 +21,18 @@ export interface ExamData {
   questionCognitive: string;
   questionTags: [];
 }
-/*
-const EXAM_DATA: ExamData[] = [
-  {position: 1, exam: 'CS 106 F 17', examDate: "10/11/17", questionType: 'Multiple Choice', difficulty: '1', questionCognitive: 'Creating', questionTags: []},
-  {position: 2, exam: 'CS 106 F 18', examDate: "10/09/18", questionType: 'Multiple Choice', difficulty: '2', questionCognitive: 'Analyzing', questionTags: []},
-  {position: 3, exam: 'CS 106 S 17', examDate: "3/12/17", questionType: 'Multiple Choice', difficulty: '2', questionCognitive: 'Evaluating', questionTags: []},
-  {position: 4, exam: 'CS 106 S 17', examDate: "3/18/17", questionType: 'Programming', difficulty: '3', questionCognitive: 'Analyzing', questionTags: []},
-  {position: 5, exam: 'CS 106 S 18', examDate: "3/20/18", questionType: 'Programming', difficulty: '2', questionCognitive: 'Evaluating', questionTags: []},
-  {position: 6, exam: 'CS 106 S 17', examDate: "3/18/17", questionType: 'Multiple Choice', difficulty: '3', questionCognitive: 'Analyzing', questionTags: []},
-  {position: 7, exam: 'CS 106 S 18', examDate: "3/18/18", questionType: 'Programming', difficulty: '3', questionCognitive: 'Creating', questionTags: []},
-    {position: 8, exam: 'CS 106 S 17', examDate: "3/18/17", questionType: 'Programming', difficulty: '3', questionCognitive: 'Creating', questionTags: []},
-    {position: 9, exam: 'CS 106 F 18', examDate: "3/18/18", questionType: 'Multiple Choice', difficulty: '3', questionCognitive: 'Analyzing', questionTags: []},
-    {position: 10, exam: 'CS 106 F 18', examDate: "3/18/18", questionType: 'Programming', difficulty: '3', questionCognitive: 'Applying', questionTags: []},
-    {position: 11, exam: 'CS 106 F 17', examDate: "3/18/17", questionType: 'Multiple Choice', difficulty: '3', questionCognitive: 'Applying', questionTags: []},
-    {position: 12, exam: 'CS 106 S 17', examDate: "3/18/17", questionType: 'Programming', difficulty: '1', questionCognitive: 'Analyzing', questionTags: []}
-];
 
-*/
+
+
 @Component({
   providers: [QuestionTableComponent],
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnInit {
-    
-    
 
+
+export class FilterComponent implements OnInit, AfterViewInit {
     //ngModel databinds
     inputText;
     allExams = true;
@@ -77,14 +58,18 @@ export class FilterComponent implements OnInit {
     topics;
     filters = new Array();
     inputResult;
+    results: Question[][];
+    arr: Question[] = [];
+    exams = ["CS 106 S 17", "CS 106 F 17", "CS 106 S 18"];
     
     //for autofill
     //options;
+    
     options: User[] = [{name: "Initial Result"}];
     filteredOptions: Observable<User[]>;
     
     //load exams from list of previous exams, this is used to determine which exams to search for
-    exams = ["CS 106 S 17", "CS 106 F 17", "CS 106 S 18"];
+    
     //this is the databinding to the exam # options
     //selectedExam;
     selectedDifficulty;
@@ -99,24 +84,36 @@ export class FilterComponent implements OnInit {
     
     
     
-  constructor(private dataService: DataService, private questionTable: QuestionTableComponent) { 
+  constructor(private dataService: DataService) { 
+      //get all question prompts from data service, add to options
       
-      var array = new Array<User>();
-      var x = dataService.getTitlesForFilterAutotype();
-      var loopLength = x.length;
-      while(loopLength--){
-         array.push({name: x[loopLength].questionStr}); //this.options.push(x[loopLength].questionStr);
-      }
-      //console.log(array);
-      this.options = array;
+      
+      
+   
   }
   
-      myControl = new FormControl();
+    myControl = new FormControl();
 
     @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    //get all question prompts from data service, add to options
+  
+    this.dataService.getQuestions().subscribe((data: Question[][]) => {this.results = data;
+    });
+    
+      var array = new Array<User>();
+      var x = this.dataService.getTitlesForFilterAutotype();
+      var loopLength = x.length;
+       console.log(loopLength);
+      while(loopLength--){
+         array.push({name: x[loopLength].questionStr}); //this.options.push(x[loopLength].questionStr);
+         console.log(loopLength);
+         console.log(x[loopLength].questionStr);
+      }
+      console.log(array);
+      this.options = array;
+      
+   //get all question prompts from data service, add to options
       
       //for autofill
       this.filteredOptions = this.myControl.valueChanges
@@ -125,8 +122,17 @@ export class FilterComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value.name),
         map(name => name ? this._filter(name) : this.options.slice())
       ); 
-
+      
+      
+      
+      
   }
+  
+  ngAfterViewInit() {
+    
+  }
+  
+  
     //for autofill
     displayFn(user?: User): string | undefined {
     return user ? user.name : undefined;
@@ -138,10 +144,17 @@ export class FilterComponent implements OnInit {
 
     return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
-    
+  
+  public setArr() {
+    this.arr = (Object.values(this.results)[0]);
+  }
+  
   filterResults() {
+ 
       //establish array of all filters
       //global
+      
+      this.setArr();
       
       //reset filters
       this.filters = new Array();
@@ -266,8 +279,8 @@ export class FilterComponent implements OnInit {
       
       //get topics
       //TODO
-      //console.log(this.filters);
       
+      console.log(this.filters);
       
       
       //pass to data service to filter
@@ -279,7 +292,6 @@ export class FilterComponent implements OnInit {
     onSubmit(){
         //do the searching, then reset for next search
      this.filterResults();
-
     }
     
     placeholder(){

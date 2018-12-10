@@ -35,7 +35,8 @@ import { QuestionPageGraphComponent } from './question-page-graph/question-page-
 
 import { SheetJSComponent } from './sheetjs.component';
 
-
+import { DataService } from './data.service';
+import { ExamDataService } from './exam-data.service'
 import { Component } from '@angular/core';
 /*
 @Component({
@@ -62,7 +63,7 @@ import { Component } from '@angular/core';
 	imports: [
 		BrowserModule
 	],
-	providers: [],
+	providers: [DataService, ExamDataService],
 	bootstrap: [AppComponent]
 })*/
 //export class AppModule { }
