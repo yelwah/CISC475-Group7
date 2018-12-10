@@ -11,6 +11,6 @@ export interface Question {
   b: Number;
   c: Number;
   d: Number;
-  averageCorrect: String;
+  averageCorrect: Number;
   totalCorrect: Number;
 }

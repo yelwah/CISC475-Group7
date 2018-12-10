@@ -22,7 +22,7 @@ export class BarGraphComponent implements OnInit {
   questionData: Number[] = [];
  
   constructor(private dataService: DataService){
-  this.dataService.currentNums.subscribe(questionNums => {this.questionNums = questionNums;});
+    this.dataService.currentNums.subscribe(questionNums => {this.questionNums = questionNums;});
     this.dataService.currentData.subscribe(questionData => {this.questionData = questionData;});
   }
   
@@ -56,7 +56,7 @@ export class BarGraphComponent implements OnInit {
         {
           scaleLabel: {
           display: true,
-          labelString: 'Question Number'
+          labelString: 'Question ID'
           }
         }
       ]
@@ -68,7 +68,7 @@ export class BarGraphComponent implements OnInit {
   public barChartLegend:boolean = true;
 
   public barChartData:any[] = [
-    {data: this.questionData +'%', label: 'Average Percent Correct'}
+    {data: this.questionData, label: 'Average Percent Correct'}
   ];
 
   // events

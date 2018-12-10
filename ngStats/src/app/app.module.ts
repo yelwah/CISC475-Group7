@@ -38,13 +38,6 @@ import { SheetJSComponent } from './sheetjs.component';
 import { DataService } from './data.service';
 import { ExamDataService } from './exam-data.service'
 import { Component } from '@angular/core';
-/*
-@Component({
-	selector: 'app-root',
-	template: `<sheetjs></sheetjs>`
-})
-*/
-
 
 
 @Component({
