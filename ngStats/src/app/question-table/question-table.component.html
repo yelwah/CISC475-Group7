@@ -6,7 +6,7 @@
             <b>Questions results:</b>
             <br>
 
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 resultsTable">
+            <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8 resultsTable">
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="position">
@@ -58,7 +58,7 @@
 
             <mat-paginator id='mat' [length]="5" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons class="paginator">
             </mat-paginator>
-
+            
         </div>
 
     </div>

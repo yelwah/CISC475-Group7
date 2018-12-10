@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { TableService} from '../table-service.service';
 import { DataSource } from "@angular/cdk/collections";
-import { Question } from "../question.model";
+import { Question } from "../Question";
 import { DataService } from '../data.service';
 import { MatPaginator, MatSort, MatTableDataSource, MatTooltip, TooltipPosition } from '@angular/material';
 import { ExamDataService } from '../exam-data.service';
@@ -28,7 +28,8 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
    // get data(): DataTableItem[] {return this.dataStream.value;}
     
   
-  dataSource= new MatTableDataSource();
+  dataSource= new MatTableDataSource<Question>();
+  
    displayedColumns: string[] = ['position', 'exam', 'examDate', 'questionType', 'difficulty','questionCognitive'];
 
   
@@ -37,6 +38,10 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
   constructor(private dataService: DataService, private QIDService: ExamDataService, private changeDetectorRefs: ChangeDetectorRef) {
       //i commented this out but im not sure what it did, or if it did anything. if issues, uncomment
     //this.dataSource = dataService.results;
+    this.dataService.getQuestions().subscribe((data: Question[]) => {this.results = data;});
+    
+    
+   
   }
     
 
@@ -49,17 +54,22 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     
 
   ngOnInit() {
+     
+
+     this.dataSource = new MatTableDataSource<Question>(this.results);
+      
       this.getResults();
     
-      //this.dataSource = new MatTableDataSource(this.results);
-      this.dataSource = this.results;
+      // create data source
+      this.dataSource = this.dataService.getDataSource();
+      
       
       //this.dataSource.sort = this.sort;
 
      //console.log(this.results);
       
       //sort datasource
-      //this.dataSource.sort = this.sort;
+
       
       //console.log("test");
       //doesnt have results
@@ -77,10 +87,18 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
       });*/
       this.QIDService.currentQID.subscribe(QID => this.QID = QID)
       
+      // update data in data source when available
+      this.dataService.currentSource.subscribe(dataSource => {this.dataSource = dataSource, this.update();})
+      
+
+
+
+
+
   }
   
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    
   }
   
   onRowClicked(row) {
@@ -116,7 +134,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     //return dataSource
   getResults() {
     this.results = this.dataService.getDataSource();
-      //console.log(this.results);//this gets filtered results, in filter component use service to filter
+      console.log(this.results);//this gets filtered results, in filter component use service to filter
       //this.updateTable();
       return this.results;
       
@@ -156,19 +174,16 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
       
       
   }
+  
 
     public update(){
+     
         this.dataSource = this.getResults();
-        if(this.dataSource.data.length == 0){
-            console.log(this.dataSource.data.length);
-            console.log("no results");
-            //show an alert indicating there are no results and give an option to clear the inputs/start over
-            alert('No results');
-        }
-        
-        
+     
         //refresh paginator
        this.dataSource.paginator = this.paginator;
+       
+       this.dataSource.sort = this.sort;
         
     }
 }
