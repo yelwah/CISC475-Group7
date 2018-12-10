@@ -45,6 +45,16 @@ export class SheetJSComponent {
 
 			/* save data */
 			this.data = <AOA>(XLSX.utils.sheet_to_json(ws, {header: 1}));
+
+
+			var theJSON = JSON.stringify(this.data);
+			var uri = "data:application/json;charset=UTF-8," + encodeURIComponent(theJSON);
+			  
+			var a = document.createElement('a');
+			a.href = uri;
+			a.innerHTML = "Right-click and choose 'save as...'";
+			document.body.appendChild(a);
+
 		};
 		reader.readAsBinaryString(target.files[0]);
 	}

@@ -1,9 +1,0 @@
-{
-    "course":[
-        {
-            "courseID": 1,
-            "courseName": "Course1",
-            "department": "Cisc"
-        }
-    ]
-}
