@@ -80,7 +80,7 @@ import { Component } from '@angular/core';
     QuestionDetailsComponent,
     QuestionStatsComponent,
     QuestionPageGraphFilterComponent,
-    QuestionPageGraphComponent
+    QuestionPageGraphComponent,
   ],
   imports: [
     ChartsModule,

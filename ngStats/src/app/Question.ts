@@ -7,4 +7,10 @@ export interface Question {
   questionCognitive: string;
   questionTags: [];
   questionStr: string;
+  a: Number;
+  b: Number;
+  c: Number;
+  d: Number;
+  averageCorrect: String;
+  totalCorrect: Number;
 }

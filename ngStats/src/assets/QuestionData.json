@@ -8,7 +8,13 @@
         "difficulty": "1", 
         "questionCognitive": "Creating",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "What is 2+2?",
+        "a": 2,
+        "b": 90,
+        "c": 0,
+        "d": 8,
+        "averageCorrect": 90,
+        "totalCorrectPts": 90
     },
     {
         "position": 2,
@@ -18,7 +24,13 @@
         "difficulty": "2",
         "questionCognitive": "Analyzing",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "What is Object Oriented Programming?",
+        "a": 10,
+        "b": 5,
+        "c": 20,
+        "d": 65,
+        "averageCorrect": 65,
+        "totalCorrectPts": 65
     },
     {
         "position": 3,
@@ -28,7 +40,13 @@
         "difficulty": "2",
         "questionCognitive": "Evaluating",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "Who is your TA?",
+        "a": 8,
+        "b": 22,
+        "c": 11,
+        "d": 59,
+        "averageCorrect": 59,
+        "totalCorrectPts": 59
     },
     {
         "position": 4,
@@ -38,7 +56,13 @@
         "difficulty": "3",
         "questionCognitive": "Analyzing",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "What is 36/6?",
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "averageCorrect": 49,
+        "totalCorrectPts": 78
     },
     {
         "position": 5,
@@ -48,7 +72,13 @@
         "difficulty": "2",
         "questionCognitive": "Evaluating",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "What is the meaning of life?",
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "averageCorrect": 56,
+        "totalCorrectPts": 89
     },
     {
         "position": 6,
@@ -58,7 +88,13 @@
         "difficulty": "3",
         "questionCognitive": "Analyzing",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "Write out pi.",
+        "a": 85,
+        "b": 3,
+        "c": 2,
+        "d": 0,
+        "averageCorrect": 85,
+        "totalCorrectPts": 85
     },
     {
         "position": 7,
@@ -68,7 +104,13 @@
         "difficulty": "3",
         "questionCognitive": "Creating",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "Code QuickSort.",
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "averageCorrect": 64,
+        "totalCorrectPts": 75
     },
     {
         "position": 8,
@@ -78,7 +120,13 @@
         "difficulty": "3",
         "questionCognitive": "Creating",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "Which sort is O(n)?",
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "averageCorrect": 70,
+        "totalCorrectPts": 87
     },
     {
         "position": 9,
@@ -88,7 +136,13 @@
         "difficulty": "3",
         "questionCognitive": "Analyzing",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "Who is UDs president?",
+        "a": 2,
+        "b": 70,
+        "c": 20,
+        "d": 8,
+        "averageCorrect": 75,
+        "totalCorrectPts": 70
     },
     {
         "position": 10,
@@ -98,7 +152,14 @@
         "difficulty": "3",
         "questionCognitive": "Applying",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "Write an O(log(n)) sort.",
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "averageCorrect": 68,
+        "totalCorrectPts": 85
+        
     },
     {
         "position": 11,
@@ -108,7 +169,13 @@
         "difficulty": "3",
         "questionCognitive": "Applying",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "What is Angular?",
+        "a": 12,
+        "b": 10,
+        "c": 5,
+        "d": 73,
+        "averageCorrect": 73,
+        "totalCorrectPts": 73
     },
     {
         "position": 12,
@@ -118,7 +185,14 @@
         "difficulty": "1",
         "questionCognitive":"Analyzing",
         "questionTags": [],
-        "questionStr": "What is 2+2?"
+        "questionStr": "Create a linked list node.",
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "averageCorrect": 59,
+        "totalCorrectPts": 79
+        
     }
     ]
 

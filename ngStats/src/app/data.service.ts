@@ -24,9 +24,19 @@ export class DataService implements OnInit, AfterViewInit{
   //set url to api call or server
   url = 'http://localhost:4200/assets/QuestionData.json';
   results: Question[][];
+  resultsarr: Question[] = [];
   arr: Question[] = [];
   finalresults: Question[][];
   dataSource;
+  
+  questionNums: Number[] = [];
+  questionData: Number[] = [];
+  
+  private qnumsource = new BehaviorSubject(this.questionNums);
+  private qdatasource = new BehaviorSubject(this.questionData);
+  currentNums = this.qnumsource.asObservable();
+  currentData = this.qdatasource.asObservable();
+  
   
   private source = new BehaviorSubject(new MatTableDataSource(this.arr));
   currentSource = this.source.asObservable();
@@ -55,7 +65,20 @@ export class DataService implements OnInit, AfterViewInit{
  
  changeSource(dataSource: MatTableDataSource<Question>) {
       this.source.next(dataSource);
+      
  }
+ 
+ changeqNumsSource(questionNums: Number[]) {
+       this.qnumsource.next(questionNums);
+      
+ }
+ changeqDataSource(questionData: Number[]) {
+      this.qdatasource.next(questionData);
+      
+ }
+ 
+
+      
 
  
     
@@ -111,10 +134,10 @@ export class DataService implements OnInit, AfterViewInit{
   
     
     this.setArr();
-
+    
     console.log(Object.keys(Object.values(this.results)[0]).length);
     console.log(this.arr.length);
-    console.log(this.arr[0].questionStr);
+    console.log(this.arr[0].averageCorrect);
   
       //filters format should be:
       //[input, exam ownership (none = 0, all = 1, only own = 2), exam # (false or a string),
@@ -305,6 +328,8 @@ export class DataService implements OnInit, AfterViewInit{
       
      
       
+     
+      }
       console.log(this.arr[0]);
       this.finalresults = [(this.arr)];
       
@@ -319,14 +344,36 @@ export class DataService implements OnInit, AfterViewInit{
             console.log("no results");
             //show an alert indicating there are no results and give an option to clear the inputs/start over
             alert('No results');
-        }
-      this.changeSource(this.dataSource);
       }
+      this.changeSource(this.dataSource);
+      this.changeqNumsSource(this.getQuestionConfig());
+      this.changeqDataSource(this.getDataConfig());
   }
    
    
     getResult(){
         return this.dataSource;
+    }
+    
+    
+    getQuestionConfig():Number[]{
+        this.questionNums.length = 0;
+        var q1 = this.arr.length;
+        while(q1--){
+            this.questionNums.push(this.arr[q1].position);
+            console.log(this.arr[q1].position); // 1, "string", false
+        }
+        return this.questionNums;
+    }
+    
+    getDataConfig():Number[]{
+        this.questionData.length=0;
+        var q1 = this.arr.length;
+        while(q1--){
+            this.questionData.push(this.arr[q1].averageCorrect;
+            console.log(this.arr[q1].averageCorrect); // 1, "string", false
+        }
+        return this.questionData;
     }
 
 }
