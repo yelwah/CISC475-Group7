@@ -15,7 +15,6 @@ export class ExamSearchComponent implements OnInit {
        this.dataService.getQuestions().subscribe((data: Question[][]) => {this.results = data;
             });
     }
-      
     
     ngOnInit() {
    }

@@ -15,6 +15,13 @@ export class QuestionDetailsComponent implements OnInit {
   ngOnInit() {
     this.QIDService.currentQID.subscribe(QID => this.QID = QID);
   }
+  
+  public getType(){
+    if(this.QID.questionType == "Multiple Choice"){
+        return true;
+    }
+    else return false;
+  }
 
 }
 

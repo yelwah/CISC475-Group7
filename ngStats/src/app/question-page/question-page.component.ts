@@ -9,7 +9,6 @@ import { Question } from '../Question';
 })
 export class QuestionPageComponent implements OnInit {
     QID:Question;
-    QType = false;
 
   constructor(private QIDService: ExamDataService) { }
 
@@ -20,10 +19,10 @@ export class QuestionPageComponent implements OnInit {
   //Only show graph if multiple choice question
   checkType(){
     if(this.QID.questionType == "Multiple Choice"){
-        this.QType = true;
+        return true;
     }
     else{
-        this.QType = false;
+        return false;
     }
   }
   

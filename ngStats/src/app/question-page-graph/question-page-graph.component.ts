@@ -88,6 +88,13 @@ export class QuestionPageGraphComponent implements OnInit {
     return this.averages;
   }
   
+  public getType(){
+    if(this.QID.questionType == "Multiple Choice"){
+        return true;
+    }
+    else return false;
+  }
+  
 
 }
 

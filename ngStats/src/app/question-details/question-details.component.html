@@ -12,6 +12,7 @@
 </div>
 <hr>
 <div>
+<div *ngIf="getType()">
 <h6>Possible Answers:</h6> 
     <mat-card class="card">
 Answer 1 (n/a)<br>
@@ -20,22 +21,30 @@ Answer 3 (n/a)<br>
 Answer 4 (n/a)<br>
     </mat-card>
 </div>
+    
+<div *ngIf="!getType()">
+<h6>Solution:</h6> 
+    <mat-card class="card">
+Programming Solution (n/a)<br>
+    </mat-card>
+</div>
 <hr>
 <div>
+</div>
 <h6>Question Information:</h6>
     <mat-card class="card">
-Question ID: {{QID.position}} <br>
-Difficulty: {{QID.difficulty}} <br>
-Exam: {{QID.exam}} <br>
-Exam Date: {{QID.examDate}} <br>
-Question Type: {{QID.questionType}} <br>
-Question Cognitive Level: {{QID.questionCognitive}} <br>
-Topic: (n/a) <br>
-SLO: (n/a) <br>
-Tags: (n/a) <br>
-CreationDate: (n/a) <br>
-CreatedBy: (n/a) <br>
-ModifiedDate: (n/a) <br>
-ModifiedBy: (n/a) <br>
+Question ID: <span class="blue">{{QID.position}}</span> <br>
+Difficulty: <span class="blue">{{QID.difficulty}}</span> <br>
+Exam: <span class="blue">{{QID.exam}}</span> <br>
+Exam Date: <span class="blue">{{QID.examDate}}</span> <br>
+Question Type: <span class="blue">{{QID.questionType}}</span> <br>
+Question Cognitive Level: <span class="blue">{{QID.questionCognitive}}</span> <br>
+Topic: <span class="blue">(n/a)</span> <br>
+SLO: <span class="blue">(n/a)</span> <br>
+Tags: <span class="blue">(n/a)</span> <br>
+CreationDate: <span class="blue">(n/a)</span> <br>
+CreatedBy: <span class="blue">(n/a)</span> <br>
+ModifiedDate: <span class="blue">(n/a)</span> <br>
+ModifiedBy: <span class="blue">(n/a)</span> <br>
     </mat-card>
 </div>

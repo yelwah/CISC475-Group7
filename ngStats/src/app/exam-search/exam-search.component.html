@@ -1,4 +1,4 @@
-
+<div *ngIf="results">
     <div style="text-align:center">
         <h3><b>
         Question Search
@@ -9,7 +9,7 @@
             <app-filter></app-filter>
         </div>
     </div>
-    
+    <div *ngIf="results">
         <div class="row">
             <div class="col-6">
                 <div class="tableContainer">
@@ -19,8 +19,8 @@
             <div class="col-6">
                 <div class="graphContainer">
                     <app-bar-graph></app-bar-graph>        
-            </div>
     </div>
-        </div>
-    
-
+  </div>
+</div>
+</div>
+</div>
