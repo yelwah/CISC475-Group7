@@ -2,7 +2,7 @@
     <div class="container">
     <mat-card class="card">
         <div class="questionPromptTextSearch">
-            <b>Search by Prompt</b>
+            <b>Search by Prompt:</b>
             <form class="example-form">
                 <mat-form-field class="form-field">
                     <input type="text" placeholder="Prompt Search" aria-label="Prompt" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="inputText">
@@ -115,7 +115,7 @@
 
                 <hr>
                 <div class="submissionBtn">
-                    <button class="btn btnSize" (click)="onSubmit()"><b>Submit</b></button>
+                    <button  mat-raised-button color="primary" class="btn btnSize" (click)="onSubmit()"><b>Submit</b></button>
                 </div>
                 
                 

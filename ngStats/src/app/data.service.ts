@@ -128,13 +128,20 @@ export class DataService implements OnInit, AfterViewInit{
         console.log(this.arr.length);
 
         var lowercaseFilter = filters[0].toLowerCase();
+        var newPromptArr = new Array();
+        
+        
         if(filters[0] !== '' || filters[0] !== 'Prompt search'){
             while(e--){
-
-            if(!this.arr[e].questionStr.toLowerCase().includes(lowercaseFilter)){
-                this.arr.splice(e,1);
+                if(this.arr[e].questionStr.toLowerCase().includes(lowercaseFilter)){
+                    newPromptArr.push(this.arr[e]);
                 }
             }
+        }
+        
+        //if there is a new array, make it to be the results
+        if(newPromptArr.length > 0){
+            this.arr = newPromptArr;
         }
 
 

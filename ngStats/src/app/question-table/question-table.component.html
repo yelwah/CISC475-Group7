@@ -1,11 +1,13 @@
 
 <div class="container">
+    <mat-card class="card">
     <div class="row">
         <hr>
         <div class="questionResultsTable col">
-            <br>
+            
             <b>Filter Results:</b>
-            <br>
+            <hr>
+            
 
             <table mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8 resultsTable">
 
@@ -63,5 +65,5 @@
         </div>
 
     </div>
-    <button (click)="update()">click</button>
+    </mat-card>
 </div>
