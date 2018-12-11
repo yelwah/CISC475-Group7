@@ -1,23 +1,12 @@
-<<<<<<< HEAD
-import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-=======
-
-import { Injectable, OnInit, AfterViewInit } from '@angular/core';
-
-import { HttpClient } from '@angular/common/http';
-
->>>>>>> d7cbea40ba6f6e2de546dd3a9b8859699d96c816
-import { Subject } from 'rxjs';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { AfterViewInit, Injectable, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Question } from './Question';
+import { SheetJSComponent } from './sheetjs.component';
 
 
-import { Question } from './Question'
-
-
-import {Observable} from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-
+type AOA = any[][];
 
 @Injectable({
   providedIn: 'root'
@@ -46,10 +35,9 @@ export class DataService implements OnInit, AfterViewInit{
     currentNums = this.qnumsource.asObservable();
     currentData = this.qdatasource.asObservable();
 
+    importData: AOA;
 
     dataSourceChange: Subject<any> = new Subject<boolean>();
-
-  
   
     constructor(private http: HttpClient) {
         //this.http.get(this.url).subscribe((data: Question[]) => {this.results = data;});
@@ -76,6 +64,12 @@ export class DataService implements OnInit, AfterViewInit{
         this.dataSourceChange.subscribe((value) => {
             this.arr = value     
         });
+
+        this.importData = SheetJSComponent.getData();
+        if(this.importData == null)
+        {
+            
+        }
     }
   
     ngAfterViewInit(){
@@ -364,5 +358,4 @@ export class DataService implements OnInit, AfterViewInit{
     changeqDataSource(questionData: Number[]) {
         this.qdatasource.next(questionData);   
     }
-
 }

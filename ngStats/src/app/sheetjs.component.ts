@@ -1,7 +1,5 @@
-/* xlsx.js (C) 2013-present SheetJS -- http://sheetjs.com */
 /* vim: set ts=2: */
 import { Component } from '@angular/core';
-
 import * as XLSX from 'xlsx';
 
 type AOA = any[][];
@@ -9,25 +7,11 @@ type AOA = any[][];
 @Component({
 	selector: 'sheetjs',
 	template: ``
-	/*<input type="file" (change)="onFileChange($event)" multiple="false" />
-	
-	<table class="sjs-table">
-		<tr *ngFor="let row of data">
-			<td *ngFor="let val of row">
-				{{val}}
-			</td>
-		</tr>
-	</table>
-	<button (click)="export()">Export!</button>
-	`*/
 })
 
 export class SheetJSComponent {
-	data: AOA = [ [1, 2], [3, 4] ];
+	static data: AOA = null;
 	wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
-	fileName: string = 'SheetJS.xlsx';
-	
-	//fileName: string = '../data/testData.json';
 
 	onFileChange(evt: any) {
 		/* wire up file reader */
@@ -44,30 +28,27 @@ export class SheetJSComponent {
 			const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
 			/* save data */
-			this.data = <AOA>(XLSX.utils.sheet_to_json(ws, {header: 1}));
-
-
-			var theJSON = JSON.stringify(this.data);
-			var uri = "data:application/json;charset=UTF-8," + encodeURIComponent(theJSON);
-			  
-			var a = document.createElement('a');
-			a.href = uri;
-			a.innerHTML = "Right-click and choose 'save as...'";
-			document.body.appendChild(a);
+			SheetJSComponent.data = <AOA>(XLSX.utils.sheet_to_json(ws, {header: 1}));
+			var dataSize: any[] = size();
+			if(dataSize[0] == 1 || dataSize[0] == 0)
+			{
+				SheetJSComponent.data = null;
+			}
 
 		};
 		reader.readAsBinaryString(target.files[0]);
 	}
-
-//	export(): void {
-//		/* generate worksheet */
-//		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
-//
-//		/* generate workbook and add the worksheet */
-//		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-//		XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-//
-//		/* save to file */
-//		XLSX.writeFile(wb, this.fileName);
-//	}
+	
+	static getData(): AOA{
+		return this.data;
+	}
 }
+function size(){
+    var row_count = SheetJSComponent.data.length;
+    var row_sizes = []
+    for(var i=0;i<row_count;i++){
+        row_sizes.push(SheetJSComponent.data[i].length)
+    }
+    return [row_count, Math.max.apply(null, row_sizes)]
+}
+

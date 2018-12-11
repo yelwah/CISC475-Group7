@@ -23,6 +23,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import { SheetJSComponent } from './sheetjs.component';
 import { MaterialModule } from './material.module';
 import { FilterComponent } from './filter/filter.component';
 import { ExamSearchComponent } from './exam-search/exam-search.component';
@@ -33,8 +34,6 @@ import { QuestionStatsComponent } from './question-stats/question-stats.componen
 import { QuestionPageGraphFilterComponent } from './question-page-graph-filter/question-page-graph-filter.component';
 import { QuestionPageGraphComponent } from './question-page-graph/question-page-graph.component';
 
-import { SheetJSComponent } from './sheetjs.component';
-
 import { DataService } from './data.service';
 import { ExamDataService } from './exam-data.service'
 import { Component } from '@angular/core';
@@ -42,7 +41,6 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-root',
-	template: `<sheetjs></sheetjs>`
 })
 /*export class AppComponent {
 	title = 'test';
@@ -61,8 +59,7 @@ import { Component } from '@angular/core';
 })*/
 //export class AppModule { }
 @NgModule({
-  declarations: [
-		SheetJSComponent,
+  declarations: [ 
     AppComponent,
     BarGraphComponent,
     QuestionTableComponent,
