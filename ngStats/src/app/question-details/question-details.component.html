@@ -1,9 +1,41 @@
-<!-- Content: {{question.content}} <br> -->
-ID: {{exam}} <br>
-<!-- Tags: {{question.Tags}} <br>
-Difficulty: {{question.Difficulty}} <br>
-SLO: {{SLO}} <br>
-CreationDate: {{CreationDate}} <br>
-CreatedBy: {{CreatedBy}} <br>
-ModifiedDate: {{ModifiedDate}} <br>
-ModifiedBy: {{ModifiedBy}} <br> -->
+<div>
+<h3>Question Details</h3>
+</div>
+<hr>
+<div>
+<h6>Question:</h6>
+    <mat-card class="card">
+        <div class="question">
+       <h6><i>"{{QID.questionStr}}" </i></h6>
+        </div>
+    </mat-card>
+</div>
+<hr>
+<div>
+<h6>Possible Answers:</h6> 
+    <mat-card class="card">
+Answer 1 (n/a)<br>
+Answer 2 (n/a)<br>
+Answer 3 (n/a)<br>
+Answer 4 (n/a)<br>
+    </mat-card>
+</div>
+<hr>
+<div>
+<h6>Question Information:</h6>
+    <mat-card class="card">
+Question ID: {{QID.position}} <br>
+Difficulty: {{QID.difficulty}} <br>
+Exam: {{QID.exam}} <br>
+Exam Date: {{QID.examDate}} <br>
+Question Type: {{QID.questionType}} <br>
+Question Cognitive Level: {{QID.questionCognitive}} <br>
+Topic: (n/a) <br>
+SLO: (n/a) <br>
+Tags: (n/a) <br>
+CreationDate: (n/a) <br>
+CreatedBy: (n/a) <br>
+ModifiedDate: (n/a) <br>
+ModifiedBy: (n/a) <br>
+    </mat-card>
+</div>

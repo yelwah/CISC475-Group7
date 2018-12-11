@@ -12,5 +12,5 @@ export interface Question {
   c: Number;
   d: Number;
   averageCorrect: Number;
-  totalCorrect: Number;
+  totalCorrectPts: Number;
 }

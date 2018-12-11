@@ -1,3 +1,5 @@
+//initial approach to Question model
+
 export interface Question{
     Content: string
     ID: number

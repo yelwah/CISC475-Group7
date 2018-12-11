@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionInfoService } from '../question-info.service';
+import { ExamDataService } from '../exam-data.service';
+import { Question } from '../Question';
 
 @Component({
   selector: 'app-question-details',
@@ -7,14 +8,14 @@ import { QuestionInfoService } from '../question-info.service';
   styleUrls: ['./question-details.component.scss']
 })
 export class QuestionDetailsComponent implements OnInit {
-  
-  QID:string;
-  exam:object;
+  QID:Question;
 
-  constructor(private QInfo: QuestionInfoService) {  }
+  constructor(private QIDService: ExamDataService) {  }
 
   ngOnInit() {
-    this.exam = this.QInfo.getExam();
+    this.QIDService.currentQID.subscribe(QID => this.QID = QID);
   }
 
 }
+
+  

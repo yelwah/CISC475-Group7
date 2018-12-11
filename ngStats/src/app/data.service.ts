@@ -1,5 +1,5 @@
 
-import { Injectable, OnInit, AfterViewInit } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -18,7 +18,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 
-export class DataService implements OnInit, AfterViewInit{
+export class DataService implements OnInit {
 
   
     //Set url to json file or api call to retrieve data
@@ -74,19 +74,14 @@ export class DataService implements OnInit, AfterViewInit{
             this.arr = value     
         });
 
-        this.dataSourceChange.subscribe((value) => {
+        this.dataSourceChange.subscribe((value) => 
             this.arr = value,    
-            console.log(this.arr)
-        });
+        );
         
 
         this.setArr();
-        console.log(this.arr);
     }
   
-    ngAfterViewInit(){
-        console.log(this.arr);
-    }
     
     initService(){
         this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
@@ -113,9 +108,6 @@ export class DataService implements OnInit, AfterViewInit{
         this.setArr();
         //this.initService();
         
-        console.log(Object.keys(Object.values(this.results)[0]).length);
-        console.log(this.arr.length);
-        
 
         //filters format should be:
         //[input, exam ownership (none = 0, all = 1, only own = 2), exam # (false or a string),
@@ -125,7 +117,6 @@ export class DataService implements OnInit, AfterViewInit{
 
         //filter prompt search
         var e = this.arr.length;
-        console.log(this.arr.length);
 
         var lowercaseFilter = filters[0].toLowerCase();
         var newPromptArr = new Array();
@@ -248,7 +239,6 @@ export class DataService implements OnInit, AfterViewInit{
                 
                 if((setDate >= filters[8]) && (setDate <= filters[9])){
                     newArr2.push(this.arr[x1]);
-                    console.log(setDate);
                 }
             }
         
@@ -342,8 +332,6 @@ export class DataService implements OnInit, AfterViewInit{
 
         //Send alert if no filters match    
         if(this.dataSource.data.length == 0){
-            console.log(this.dataSource.data.length);
-            console.log("no results");
             //show an alert indicating there are no results and give an option to clear the inputs/start over
             alert('No results');
         }

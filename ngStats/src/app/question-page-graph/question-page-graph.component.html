@@ -1,3 +1,18 @@
-<p>
-  question-page-graph works!
-</p>
+<mat-card class="card">
+
+    <b>   Answer Choice Percentage:</b>
+    <hr>
+
+
+<div style="display: block">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+</div>
+</mat-card>
+

@@ -20,7 +20,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class QuestionTableComponent implements OnInit, AfterViewInit {
 
-   QID:string;
+   QID:Question;
    
 
   //  dataStream = new BehaviorSubject<DataTableItem[]>(this.dataService.getResult());
@@ -114,12 +114,30 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     //display the row's question  
     
     //not sure if this is the best place to put this
-    this.QIDService.changeQID(row.position)
+    this.QIDService.changeQID(this.createQuestion(row));
   }
     
   results;
     
-    
+  createQuestion(row){
+        
+        this.QID.position = row.position;
+        this.QID.exam = row.exam;
+        this.QID.examDate = row.examDate;
+        this.QID.questionType = row.questionType;
+        this.QID.difficulty = row.difficulty;
+        this.QID.questionCognitive = row.questionCognitive;
+        this.QID.questionTags = row.questionTags;
+        this.QID.questionStr = row.questionStr;
+        this.QID.a = row.a;
+        this.QID.b = row.b;
+        this.QID.c = row.c;
+        this.QID.d = row.d;
+        this.QID.averageCorrect = row.averageCorrect;
+        this.QID.totalCorrectPts = row.totalCorrectPts;
+        return this.QID;
+  
+  } 
     //observe dataSource or changes
     /*const update = new Observable((observer) => {
         const {next, error} = observer;
@@ -133,7 +151,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     //return dataSource
   getResults() {
     this.results = this.dataService.getDataSource();
-      console.log(this.results);//this gets filtered results, in filter component use service to filter
+      //this gets filtered results, in filter component use service to filter
       //this.updateTable();
       return this.results;
       
@@ -142,7 +160,6 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
 
   public highlight(row){
     this.selectedRowIndex = row.position;
-    //console.log('highlight', row.position);
   }
   
   public dataFromService = '';

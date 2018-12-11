@@ -106,14 +106,13 @@ export class FilterComponent implements OnInit, AfterViewInit {
       var array = new Array<User>();
       var x = this.dataService.getTitlesForFilterAutotype();
       var loopLength = x.length;
-       console.log(loopLength);
+
       while(loopLength--){
-        console.log(x[loopLength].questionStr);
+        
          array.push({name: x[loopLength].questionStr}); //this.options.push(x[loopLength].questionStr);
-         console.log(loopLength);
-         console.log(x[loopLength].questionStr);
+         
       }
-      console.log(array);
+      
       this.options = array;
       
       
@@ -176,7 +175,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
       else{
           this.filters.push('');
       }*/
-      //console.log(this.inputText.name);
+      
      /* if(this.inputText == null){
           //skip
       }
@@ -186,15 +185,15 @@ export class FilterComponent implements OnInit, AfterViewInit {
       var check : string | undefined;
 
       if(this.inputText == ''){
-          //console.log(this.inputText);
+          
           this.filters.push('');
       }
       else if(this.inputText === check){
-          //console.log("undefined here");
+          
           this.filters.push('');
       }
       else{
-          //console.log("not empty");
+          
           this.filters.push(this.inputText.name);
 
       }
@@ -265,7 +264,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
       if(this.dateStart){
         //start
         this.filters.push(this.dateStart.value);
-        console.log(this.dateStart.value);
+        
       }
       else{
           //shouldnt happen
@@ -275,7 +274,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
       if(this.dateEnd){
           //end
         this.filters.push(this.dateEnd.value);
-        console.log(this.dateEnd.value);
+       
       }
       else{
           //shouldnt happen
@@ -290,7 +289,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
       //get topics
       //TODO
       
-      console.log(this.filters);
       
       
       //pass to data service to filter
