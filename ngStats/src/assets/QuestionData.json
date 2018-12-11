@@ -3,7 +3,7 @@
     {
         "position": 1,
         "exam": "CS 106 F 17",
-        "examDate": "10/11/17",
+        "examDate": "10/11/2017",
         "questionType": "Multiple Choice",
         "difficulty": "1", 
         "questionCognitive": "Creating",
@@ -19,7 +19,7 @@
     {
         "position": 2,
         "exam": "CS 106 F 18",
-        "examDate": "10/09/18",
+        "examDate": "10/09/2018",
         "questionType": "Multiple Choice",
         "difficulty": "2",
         "questionCognitive": "Analyzing",
@@ -35,7 +35,7 @@
     {
         "position": 3,
         "exam": "CS 106 S 17",
-        "examDate": "3/12/17",
+        "examDate": "3/12/2017",
         "questionType": "Multiple Choice",
         "difficulty": "2",
         "questionCognitive": "Evaluating",
@@ -51,7 +51,7 @@
     {
         "position": 4,
         "exam": "CS 106 S 17",
-        "examDate": "3/18/17",
+        "examDate": "3/18/2017",
         "questionType": "Programming",
         "difficulty": "3",
         "questionCognitive": "Analyzing",
@@ -67,7 +67,7 @@
     {
         "position": 5,
         "exam": "CS 106 S 18",
-        "examDate": "3/20/18",
+        "examDate": "3/20/2018",
         "questionType": "Programming",
         "difficulty": "2",
         "questionCognitive": "Evaluating",
@@ -83,7 +83,7 @@
     {
         "position": 6,
         "exam": "CS 106 S 17",
-        "examDate": "3/18/17",
+        "examDate": "3/18/2017",
         "questionType": "Multiple Choice",
         "difficulty": "3",
         "questionCognitive": "Analyzing",
@@ -99,7 +99,7 @@
     {
         "position": 7,
         "exam": "CS 106 S 18",
-        "examDate": "3/18/18",
+        "examDate": "3/18/2018",
         "questionType": "Programming",
         "difficulty": "3",
         "questionCognitive": "Creating",
@@ -115,7 +115,7 @@
     {
         "position": 8,
         "exam": "CS 106 S 17",
-        "examDate": "3/18/17",
+        "examDate": "3/18/2017",
         "questionType": "Programming",
         "difficulty": "3",
         "questionCognitive": "Creating",
@@ -131,7 +131,7 @@
     {
         "position": 9,
         "exam": "CS 106 F 18",
-        "examDate": "3/18/18",
+        "examDate": "3/18/2018",
         "questionType": "Multiple Choice",
         "difficulty": "3",
         "questionCognitive": "Analyzing",
@@ -147,7 +147,7 @@
     {
         "position": 10,
         "exam": "CS 106 F 18",
-        "examDate": "3/18/18",
+        "examDate": "3/18/2018",
         "questionType": "Programming",
         "difficulty": "3",
         "questionCognitive": "Applying",
@@ -164,7 +164,7 @@
     {
         "position": 11,
         "exam": "CS 106 F 17",
-        "examDate": "3/18/17",
+        "examDate": "3/18/2017",
         "questionType": "Multiple Choice",
         "difficulty": "3",
         "questionCognitive": "Applying",
@@ -180,7 +180,7 @@
     {
         "position": 12,
         "exam": "CS 106 S 17",
-        "examDate": "3/18/17",
+        "examDate": "3/18/2017",
         "questionType": "Programming",
         "difficulty": "1",
         "questionCognitive":"Analyzing",

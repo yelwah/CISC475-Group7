@@ -22,16 +22,14 @@ export class BarGraphComponent implements OnInit {
   questionData: Number[] = [];
  
   constructor(private dataService: DataService){
-    this.dataService.currentNums.subscribe(questionNums => {this.questionNums = questionNums;});
-    this.dataService.currentData.subscribe(questionData => {this.questionData = questionData;});
+    
   }
   
   ngOnInit(){
+ 
     this.dataService.currentNums.subscribe(questionNums => {this.questionNums = questionNums, this.barChartLabels = this.questionNums;});
     this.dataService.currentData.subscribe(questionData => {this.questionData = questionData, this.barChartData = [{data: this.questionData, label: 'Average Percent Correct'}];});
- 
   }
-  
   
   public barChartOptions:any = {
     scaleShowVerticalLines: false,

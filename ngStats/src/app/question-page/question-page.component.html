@@ -1,16 +1,11 @@
-<div>
-  <h3>
-    Question Data for Question ID:
-    {{QID}}
-  </h3>
-</div>
-<br>
 <mat-card class="card">
   <div class="question-details">
     <app-question-details></app-question-details>
   </div>
 </mat-card>
 <br>
+
+
 <mat-card class="card">
   <div class="row">
     <div class="col-6">
@@ -18,13 +13,14 @@
         <app-question-stats></app-question-stats>
       </div>
     </div>
+    
     <div class="col-6">
-      <div class="graphFilterContainer">
-        <app-question-page-graph-filter></app-question-page-graph-filter>
-      </div>
+        
       <div class="graphContainer">
         <app-question-page-graph></app-question-page-graph>        
-      </div>
+      
+    </div>
     </div>
   </div>
 </mat-card>
+

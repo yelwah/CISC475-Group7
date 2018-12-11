@@ -1,3 +1,33 @@
-<p>
-  question-page-graph works!
-</p>
+<div *ngIf="getType()">
+<mat-card class="card">
+
+    <b>   Answer Choice Percentage:</b>
+    <hr>
+
+
+<div style="display: block">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+</div>
+</mat-card>
+</div>
+
+<div *ngIf="!getType()">  
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h6>
+      <i>Answer Choice Graph Unavailable for Programming Questions</i>
+    </h6>
+
+</div>

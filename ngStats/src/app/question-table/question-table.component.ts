@@ -7,7 +7,7 @@ import { MatPaginator, MatSort, MatTableDataSource, MatTooltip, TooltipPosition 
 import { ExamDataService } from '../exam-data.service';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-//import 'rxjs/add/observable/of';
+
 
 
 @Injectable({
@@ -20,7 +20,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class QuestionTableComponent implements OnInit, AfterViewInit {
 
-   QID:string;
+   QID:Question;
+   
 
   //  dataStream = new BehaviorSubject<DataTableItem[]>(this.dataService.getResult());
     
@@ -38,8 +39,6 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
   constructor(private dataService: DataService, private QIDService: ExamDataService, private changeDetectorRefs: ChangeDetectorRef) {
       //i commented this out but im not sure what it did, or if it did anything. if issues, uncomment
     //this.dataSource = dataService.results;
-    this.dataService.getQuestions().subscribe((data: Question[]) => {this.results = data;});
-    
     
    
   }
@@ -55,7 +54,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
      
-
+     this.dataService.getQuestions().subscribe((data: Question[]) => {this.results = data;});
      this.dataSource = new MatTableDataSource<Question>(this.results);
       
       this.getResults();
@@ -115,12 +114,30 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     //display the row's question  
     
     //not sure if this is the best place to put this
-    this.QIDService.changeQID(row.position)
+    this.QIDService.changeQID(this.createQuestion(row));
   }
     
   results;
     
-    
+  createQuestion(row){
+        
+        this.QID.position = row.position;
+        this.QID.exam = row.exam;
+        this.QID.examDate = row.examDate;
+        this.QID.questionType = row.questionType;
+        this.QID.difficulty = row.difficulty;
+        this.QID.questionCognitive = row.questionCognitive;
+        this.QID.questionTags = row.questionTags;
+        this.QID.questionStr = row.questionStr;
+        this.QID.a = row.a;
+        this.QID.b = row.b;
+        this.QID.c = row.c;
+        this.QID.d = row.d;
+        this.QID.averageCorrect = row.averageCorrect;
+        this.QID.totalCorrectPts = row.totalCorrectPts;
+        return this.QID;
+  
+  } 
     //observe dataSource or changes
     /*const update = new Observable((observer) => {
         const {next, error} = observer;
@@ -134,7 +151,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     //return dataSource
   getResults() {
     this.results = this.dataService.getDataSource();
-      console.log(this.results);//this gets filtered results, in filter component use service to filter
+      //this gets filtered results, in filter component use service to filter
       //this.updateTable();
       return this.results;
       
@@ -143,7 +160,6 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
 
   public highlight(row){
     this.selectedRowIndex = row.position;
-    //console.log('highlight', row.position);
   }
   
   public dataFromService = '';
@@ -155,8 +171,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     
   public updateTable(){
       //console.log(this.results); null
-      let update = this.getResults();
-    
+      let update = this.getResults();    
 
       //commented out to avoid errors
       //this.dataSource = new MatTableDataSource(this.results);

@@ -1,6 +1,9 @@
-<br>
-            <b>   Average Percent Correct by Question ID:</b>
-            <br>
+<mat-card class="card">
+
+    <b>   Average Percent Correct by Question ID:</b>
+    <hr>
+
+
 <div style="display: block">
     <canvas baseChart
             [datasets]="barChartData"
@@ -10,6 +13,6 @@
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
-  </div>
-
+</div>
+</mat-card>
 

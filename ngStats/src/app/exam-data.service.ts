@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+<<<<<<< HEAD
 
 
 export interface ExamData {
@@ -28,29 +29,54 @@ const EXAM_DATA: ExamData[] = [
   {id: "5bdb46cd65fc9f2f70a2d0ef",position: 11, exam: 'CS 106 F 17', examDate: "3/18/17", questionType: 'Multiple Choice', difficulty: '3', questionCognitive: 'Applying', questionTags: [], questionStr: 'What is Angular?'},
   {id: "5bdb46cd65fc9f2f70a2d0ff",position: 12, exam: 'CS 106 S 17', examDate: "3/18/17", questionType: 'Programming', difficulty: '1', questionCognitive: 'Analyzing', questionTags: [], questionStr: 'Create a linked list node.'}
 ];
+=======
+import { Question } from './Question'
+>>>>>>> 10b4a49c9462b78ee36522fea47cf20279fab3fe
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExamDataService {
-    private QIDSource = new BehaviorSubject('default QID');
+    question: {position: Number;
+                exam: string;
+                examDate: string;
+                questionType: string;
+                difficulty: string;
+                questionCognitive: string;
+                questionTags: [];
+                questionStr: string;
+                a: Number;
+                b: Number;
+                c: Number;
+                d: Number;
+                averageCorrect: Number;
+                totalCorrectPts: Number;}
+                = {
+                position: new Number(1),
+                exam: "CS 106 F 17",
+                examDate: "10/11/2017",
+                questionType: "Multiple Choice",
+                difficulty: "1", 
+                questionCognitive: "Creating",
+                questionTags: [],
+                questionStr: "What is 2+2?",
+                a: new Number(2),
+                b: new Number(90),
+                c: new Number(0),
+                d: new Number(8),
+                averageCorrect: new Number(90),
+                totalCorrectPts: new Number(90)
+                }
+                
+    private QIDSource = new BehaviorSubject(this.question)
+    
     currentQID = this.QIDSource.asObservable();
     constructor() { }
-    exams  = Object.assign([], EXAM_DATA);
-    question;
-    results  = Object.assign([], EXAM_DATA);
 
-    changeQID(QID: string) {
-      this.QIDSource.next(QID)
+    changeQID(QID: Question) {
+      this.QIDSource.next(QID);
     }
    
-    found(EXAM_DATA, currentQID){
-        
-        for(let result of this.results){        
-            if (result.position = currentQID){
-                this.question = result;
-            }
-        }       
-    }
+    
     
 }

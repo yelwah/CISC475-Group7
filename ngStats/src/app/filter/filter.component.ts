@@ -41,14 +41,16 @@ export class FilterComponent implements OnInit, AfterViewInit {
     selectedExam = false;
     //selectedExams;
     examChoice; //true is all exams, false is my exams
-    multiChoice = true;
-    programming = false;
     difficultyOne = false;
     difficultyTwo = false;
     difficultyThree = false;
+    multipleChoice = false;
+    programming = false;
     pickerStart = false;
-    dateStart = new FormControl(new Date());
-    dateEnd   = new FormControl(new Date());
+    
+    //start dates where you choose, should implement findEarliestDate in DataService
+    dateStart = new FormControl(new Date("1/1/2000"));
+    dateEnd = new FormControl(new Date());
     cognitiveRemembering = false;
     cognitiveAnalyzing = false;
     cognitiveApplying = false;
@@ -104,15 +106,16 @@ export class FilterComponent implements OnInit, AfterViewInit {
       var array = new Array<User>();
       var x = this.dataService.getTitlesForFilterAutotype();
       var loopLength = x.length;
-       console.log(loopLength);
+
       while(loopLength--){
-        console.log(x[loopLength].questionStr);
+        
          array.push({name: x[loopLength].questionStr}); //this.options.push(x[loopLength].questionStr);
-         console.log(loopLength);
-         console.log(x[loopLength].questionStr);
+         
       }
-      console.log(array);
+      
       this.options = array;
+      
+      
       
    //get all question prompts from data service, add to options
       
@@ -123,6 +126,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
         map(value => typeof value === 'string' ? value : value.name),
         map(name => name ? this._filter(name) : this.options.slice())
       ); 
+        
       
       
       
@@ -130,7 +134,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit() {
-    
+    this.dataService.initService();
   }
   
   
@@ -171,7 +175,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
       else{
           this.filters.push('');
       }*/
-      //console.log(this.inputText.name);
+      
      /* if(this.inputText == null){
           //skip
       }
@@ -181,15 +185,15 @@ export class FilterComponent implements OnInit, AfterViewInit {
       var check : string | undefined;
 
       if(this.inputText == ''){
-          //console.log(this.inputText);
+          
           this.filters.push('');
       }
       else if(this.inputText === check){
-          //console.log("undefined here");
+          
           this.filters.push('');
       }
       else{
-          //console.log("not empty");
+          
           this.filters.push(this.inputText.name);
 
       }
@@ -219,18 +223,20 @@ export class FilterComponent implements OnInit, AfterViewInit {
           this.filters.push('');
       }
       
-      //get question type
-      //multi is t, programming is false
-      if(this.selectedType == true){
-          this.filters.push("multichoice");
+      
+      //get question type      
+      //if they are true, look for them; if false, no
+      if(this.multipleChoice){
+        this.filters.push(this.multipleChoice);
       }
-      else if(this.selectedType == false){
-          //it is programming,
-          this.filters.push("programming");
-      }
-      //need 3rd case, none selected
       else{
-        this.filters.push(0);
+          this.filters.push(false);
+      }
+      if(this.programming){
+        this.filters.push(this.programming);
+      }
+      else{
+          this.filters.push(false);
       }
       
       //get exam difficulty
@@ -258,6 +264,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
       if(this.dateStart){
         //start
         this.filters.push(this.dateStart.value);
+        
       }
       else{
           //shouldnt happen
@@ -267,6 +274,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
       if(this.dateEnd){
           //end
         this.filters.push(this.dateEnd.value);
+       
       }
       else{
           //shouldnt happen
@@ -281,7 +289,6 @@ export class FilterComponent implements OnInit, AfterViewInit {
       //get topics
       //TODO
       
-      console.log(this.filters);
       
       
       //pass to data service to filter

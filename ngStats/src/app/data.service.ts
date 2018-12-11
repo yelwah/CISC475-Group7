@@ -1,5 +1,6 @@
+
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Injectable, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Question } from './Question';
@@ -12,7 +13,7 @@ type AOA = any[][];
   providedIn: 'root'
 })
 
-export class DataService implements OnInit, AfterViewInit{
+export class DataService implements OnInit {
 
   
     //Set url to json file or api call to retrieve data
@@ -20,6 +21,7 @@ export class DataService implements OnInit, AfterViewInit{
   
     //Result arrays used in filter method
     results: Question[][];
+    results2: Question[][];
     resultsarr: Question[] = [];
     arr: Question[] = [];
   
@@ -42,7 +44,7 @@ export class DataService implements OnInit, AfterViewInit{
     constructor(private http: HttpClient) {
         //this.http.get(this.url).subscribe((data: Question[]) => {this.results = data;});
    
-      
+       this.http.get(this.url).subscribe((data: Question[][]) => {this.results2 = data;});
         this.getQuestions().subscribe((data => {
             this.results = data,
             this.dataSource = new MatTableDataSource(this.arr),
@@ -60,7 +62,9 @@ export class DataService implements OnInit, AfterViewInit{
     
     
     ngOnInit(){
+/*
         this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
+       
         this.dataSourceChange.subscribe((value) => {
             this.arr = value     
         });
@@ -70,28 +74,40 @@ export class DataService implements OnInit, AfterViewInit{
         {
             
         }
-    }
-  
-    ngAfterViewInit(){
-        console.log("reach");
-    }
-    
-
-    //Filter function with filters parameter from filter.component.ts
-    filterResults(filters){
-    
-        this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
-
-        this.dataSourceChange.subscribe((value) => {
+*/
+        this.dataSourceChange.subscribe((value) => 
             this.arr = value,    
-            console.log(this.arr)
-        });
+        );
         
 
         this.setArr();
+    }
+  
+    
+    initService(){
+        this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
+        
+        this.dataSourceChange.subscribe((value) => {
+            this.arr = value    
+        });
+        
+        
 
-        console.log(Object.keys(Object.values(this.results)[0]).length);
-        console.log(this.arr.length);
+        //this.setArr();
+        
+        //Update dataSource
+        this.dataSource = new MatTableDataSource(this.arr);
+
+        //Changing sources to send updates to components
+        this.changeSource(this.dataSource);
+        this.changeqNumsSource(this.getQuestionConfig());
+        this.changeqDataSource(this.getDataConfig());
+    }
+
+    //Filter function with filters parameter from filter.component.ts
+    filterResults(filters){
+        this.setArr();
+        //this.initService();
         
 
         //filters format should be:
@@ -100,25 +116,31 @@ export class DataService implements OnInit, AfterViewInit{
         //difficulty3(f or true), datestart, dateend, question cognitive array[remember, analyze, apply, understand, evaluate, create]]
 
 
-
         //filter prompt search
         var e = this.arr.length;
-        console.log(this.arr.length);
 
         var lowercaseFilter = filters[0].toLowerCase();
+        var newPromptArr = new Array();
+        
+        
         if(filters[0] !== '' || filters[0] !== 'Prompt search'){
             while(e--){
-
-            if(!this.arr[e].questionStr.toLowerCase().includes(lowercaseFilter)){
-                this.arr.splice(e,1);
+                if(this.arr[e].questionStr.toLowerCase().includes(lowercaseFilter)){
+                    newPromptArr.push(this.arr[e]);
                 }
-          } 
+            }
+        }
+        
+        //if there is a new array, make it to be the results
+        if(newPromptArr.length > 0){
+            this.arr = newPromptArr;
         }
 
 
         //don't have exam ownership data yet - All Exams vs. My Exams feature unavailable
-
+/*
         //filter exam name
+        var newArr0 = new Array();
         var f = this.arr.length;
         if(filters[2] ==  ''){
             //dont remove anything
@@ -126,67 +148,79 @@ export class DataService implements OnInit, AfterViewInit{
         else{
             while(f--){
                 //if strings dont match, remove
-                if(this.arr[f].exam !== filters[2]){
-                    this.arr.splice(f,1);
+                if(this.arr[f].exam == filters[2]){
+                    newArr0.push(this.arr[f]);
                 }
             } 
         }
+        //if there is a new array, make it to be the results
+        if(newArr0.length > 0 || filters[2] == ''){
+            this.arr = newArr0;
+        }*/
 
         //filter question type
-        var g = this.arr.length;
-        if(filters[3] !== 0){
+        var newArr = new Array();
+        var g1 = this.arr.length;
+        var g2 = this.arr.length;
+        
+        
             //can either be multiple choice or programming now
-            if(filters[3] == "multichoice"){
-                while(g--){
-                    if(this.arr[g].questionType !== "Multiple Choice"){
-                        this.arr.splice(g, 1);
+            if(filters[3]){
+                while(g1--){
+                    if(this.arr[g1].questionType == "Multiple Choice"){
+                        newArr.push(this.arr[g1]);
                     }  
                 }
             }
-            else if(filters[3] == "programming"){
-                while(g--){
-                    if(this.arr[g].questionType !== "Programming"){
-                        this.arr.splice(g, 1);
+            if(filters[4]){
+                while(g2--){
+                    if(this.arr[g2].questionType == "Programming"){
+                        newArr.push(this.arr[g2]);
                     }  
                 }
             }
+        
+        
+        //if there is a new array, make it to be the results
+        if(newArr.length > 0){
+            this.arr = newArr;
         }
 
         //filter question difficulty
         //can select more than one difficulty
         //build array from inputs, then splice anything from results that isnt in that array
-        var newArr = new Array();
+        var newArr1 = new Array();
         var d1 = this.arr.length;
         var d2 = this.arr.length;
         var d3 = this.arr.length;
 
-        if(filters[4]){
+        if(filters[5]){
             while(d1--){
                 if(this.arr[d1].difficulty == "1"){
-                    newArr.push(this.arr[d1]);                  
-                }
-            }
-        }
-
-        if(filters[5]){
-            while(d2--){
-                if(this.arr[d2].difficulty == "2"){
-                   newArr.push(this.arr[d2]);
+                    newArr1.push(this.arr[d1]);                  
                 }
             }
         }
 
         if(filters[6]){
+            while(d2--){
+                if(this.arr[d2].difficulty == "2"){
+                   newArr1.push(this.arr[d2]);
+                }
+            }
+        }
+
+        if(filters[7]){
             while(d3--){
                 if(this.arr[d3].difficulty == "3"){
-                    newArr.push(this.arr[d3]);
+                    newArr1.push(this.arr[d3]);
                 }
             }
         }
 
         //if there is a new array, make it to be the results
-        if(newArr.length > 0){
-            this.arr = newArr;
+        if(newArr1.length > 0){
+            this.arr = newArr1;
         }
 
 
@@ -194,10 +228,35 @@ export class DataService implements OnInit, AfterViewInit{
 
         //for all exams, check to see if date of exam is inbetween datestart and dateEnd
 
+        var newArr2 = new Array();
+        var x1 = this.arr.length;
+        
+        
+        
+        
+            while(x1--){
+                
+                var setDate = new Date(this.arr[x1].examDate);
+                
+                if((setDate >= filters[8]) && (setDate <= filters[9])){
+                    newArr2.push(this.arr[x1]);
+                }
+            }
+        
+        
+        //if there is a new array, make it to be the results
+        if(newArr2.length > 0 || ((setDate <= filters[8]) || (setDate >= filters[9]))){
+            this.arr = newArr2;
+        }
+        
+
+
+        
+
 
         //filter question cognitive level
 
-        var newArr2 = new Array();
+        var newArr4 = new Array();
         var q1 = this.arr.length;
         var q2 = this.arr.length;
         var q3 = this.arr.length;
@@ -206,56 +265,56 @@ export class DataService implements OnInit, AfterViewInit{
         var q6 = this.arr.length;
 
         //for remembering, if true, add all remembering to new array and replace results after all 6 are checked
-        if(filters[9]){
-            if(filters[9][0]){
+        if(filters[10]){
+            if(filters[10][0]){
                 while(q1--){
                     if(this.arr[q1].questionCognitive == "Remembering"){
-                        newArr2.push(this.arr[q1]);
+                        newArr4.push(this.arr[q1]);
                     }
                 }
             } 
-            if(filters[9][1]){
+            if(filters[10][1]){
                 while(q2--){
                     if(this.arr[q2].questionCognitive == "Analyzing"){
-                        newArr2.push(this.arr[q2]);
+                        newArr4.push(this.arr[q2]);
                     }
                 }
             }
-            if(filters[9][2]){
+            if(filters[10][2]){
                 while(q3--){
                     if(this.arr[q3].questionCognitive == "Applying"){
-                        newArr2.push(this.arr[q3]);
+                        newArr4.push(this.arr[q3]);
                     }
                 }
             }
-            if(filters[9][3]){
+            if(filters[10][3]){
                 while(q4--){
                     if(this.arr[q4].questionCognitive == "Understanding"){
-                        newArr2.push(this.arr[q4]);
+                        newArr4.push(this.arr[q4]);
                     }
                 }
             }
-            if(filters[9][4]){
+            if(filters[10][4]){
                 while(q5--){
                     if(this.arr[q5].questionCognitive == "Evaluating"){
-                        newArr2.push(this.arr[q5]);
+                        newArr4.push(this.arr[q5]);
                     }
                 }
             }
-            if(filters[9][5]){
+            if(filters[10][5]){
                 while(q6--){
                     if(this.arr[q6].questionCognitive == "Creating"){
-                        newArr2.push(this.arr[q6]);
+                        newArr4.push(this.arr[q6]);
                     }
                 }
             }
 
 
             //replace results with new results if at least one value is true
-            var cognitiveTruthChecker = filters[9].length;
+            var cognitiveTruthChecker = filters[10].length;
             while(cognitiveTruthChecker--){
-                if(filters[9][cognitiveTruthChecker]){
-                    this.arr = newArr2;
+                if(filters[10][cognitiveTruthChecker]){
+                    this.arr = newArr4;
                 }
             }
 
@@ -274,8 +333,6 @@ export class DataService implements OnInit, AfterViewInit{
 
         //Send alert if no filters match    
         if(this.dataSource.data.length == 0){
-            console.log(this.dataSource.data.length);
-            console.log("no results");
             //show an alert indicating there are no results and give an option to clear the inputs/start over
             alert('No results');
         }
@@ -298,7 +355,7 @@ export class DataService implements OnInit, AfterViewInit{
     }
   
     setArr() {
-        this.arr = (Object.values(this.results)[0]);
+        this.arr = (Object.values(this.results2)[0]);
     }
 
     getQuestionConfig():Number[]{
@@ -322,6 +379,14 @@ export class DataService implements OnInit, AfterViewInit{
     }
     
      getTitlesForFilterAutotype(){
+        this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
+
+        this.dataSourceChange.subscribe((value) => {
+            this.arr = value    
+        });
+        
+
+        this.setArr();
         return this.arr;
     }
 
@@ -358,4 +423,11 @@ export class DataService implements OnInit, AfterViewInit{
     changeqDataSource(questionData: Number[]) {
         this.qdatasource.next(questionData);   
     }
+    
+    findEarliestDate() {
+        var temp = this.arr;
+        temp.sort((a, b) => a.position < b.position ? -1 : a.position > b.position ? 1 : 0)
+        return new Date(temp[0].examDate);
+    }
+
 }

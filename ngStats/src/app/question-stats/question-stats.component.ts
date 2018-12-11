@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExamDataService } from '../exam-data.service';
-import { QuestionInfoService } from '../question-info.service'
+import { Question } from '../Question';
 
 @Component({
   selector: 'app-question-stats',
@@ -17,10 +17,12 @@ export class QuestionStatsComponent implements OnInit {
   averageTimeTaken;
   discriminantValue;
 
-  constructor( private QIDService: ExamDataService ) { }
+  QID:Question;
+
+  constructor(private QIDService: ExamDataService) {  }
 
   ngOnInit() {
-
+    this.QIDService.currentQID.subscribe(QID => this.QID = QID);
   }
 
 }
