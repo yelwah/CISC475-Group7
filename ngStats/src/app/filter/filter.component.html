@@ -1,6 +1,8 @@
-<div class="container">
+
+    <div class="container">
     <mat-card class="card">
         <div class="questionPromptTextSearch">
+            <b>Search by Prompt</b>
             <form class="example-form">
                 <mat-form-field class="form-field">
                     <input type="text" placeholder="Prompt Search" aria-label="Prompt" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="inputText">
@@ -19,14 +21,37 @@
 
                 <hr>
                 <div class="filterQType">
-                    Exam:
+                    <b>Exam:</b>
                     <br>
                     <mat-radio-group [(ngModel)]="examChoice">
                         <mat-radio-button [value]="allExams" class="rbSpace">All Exams</mat-radio-button>
                         <mat-radio-button [value]="myExams" class="rbSpace">Only my exams</mat-radio-button>
                     </mat-radio-group>
                 </div>
+                
                 <hr>
+                <div class="filterProctoredDate">
+                    <b>Proctored Date Range:</b>
+                    <div class="row">
+                        <div class="filterProctoredDateStart col">
+                            <mat-form-field>
+                                <input matInput class="dateInput" [matDatepicker]="pickerStart" placeholder="Choose a start date" [formControl]="dateStart" ng-model = "dateStart" >
+                                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerStart></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <!--                    {{date.value}}-->
+                        <div class="filterProctoredDateEnd col">
+                            <mat-form-field>
+                                <input matInput class="dateInput" [matDatepicker]="pickerEnd" placeholder="Choose an end date" [formControl]="dateEnd" ng-model = "dateEnd">
+                                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerEnd></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+               <!-- <hr>
                 <div class="filterExamPick">
                     Exam #:
                     <br>
@@ -36,32 +61,21 @@
                             <br>
                         </mat-radio-button>
                     </mat-radio-group>
-                    <!--<div class="example-selected-value">Your selected exam is: {{selectedExam}}</div>-->
-                </div>
+                    <!--<div class="example-selected-value">Your selected exam is: {{selectedExam}}</div>
+                </div>-->
                 <hr>
 
                 <div class="filterQType">
-                    Question Type:
+                    <b>Question Type:</b>
                     <br>
-                    <mat-radio-group [(ngModel)]="selectedType">
-                        <mat-radio-button [value]="multiChoice" class="rbSpace" (click)="placeholder()">Multiple Choice</mat-radio-button>
-                        <mat-radio-button [value]="programming" class="rbSpace" (click)="placeholder()">Programming</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <hr>
-                <div class="filterQDifficulty">
-                    Question Difficulty:
-                    <br>
-
                     <section class="difficulty-section">
-                        <mat-checkbox class="difficultyMargin" [(ngModel)]="difficultyOne">1</mat-checkbox>
-                        <mat-checkbox class="difficultyMargin" [(ngModel)]="difficultyTwo">2</mat-checkbox>
-                        <mat-checkbox class="difficultyMargin" [(ngModel)]="difficultyThree">3</mat-checkbox>
+                        <mat-checkbox class="difficultyMargin" [(ngModel)]="multipleChoice">Multiple Choice</mat-checkbox>
+                        <mat-checkbox class="difficultyMargin" [(ngModel)]="programming">Programming</mat-checkbox>
                     </section>
-
-                    <hr>
+                    
                 </div>
-
+                
+                <hr>
 
             </div>
 
@@ -69,34 +83,24 @@
 
             <!-->right side </!-->
             <div class="filterRightSide col">
+                
                 <hr>
-                <div class="filterProctoredDate">
-                    Proctored Date Range:
-                    <div class="row">
-                        <div class="filterProctoredDateStart col">
-                            <mat-form-field>
-                                <input matInput class="dateInput" [matDatepicker]="pickerStart" placeholder="Choose a start date" [value]="dateStart.value">
-                                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                                <mat-datepicker #pickerStart></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                        <!--                    {{date.value}}-->
-                        <div class="filterProctoredDateEnd col">
-                            <mat-form-field>
-                                <input matInput class="dateInput" [matDatepicker]="pickerEnd" placeholder="Choose an end date" [value]="dateEnd.value">
-                                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-                                <mat-datepicker #pickerEnd></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                <div class="filterQDifficulty">
+                    <b>Question Difficulty:</b>
+                    <br>
 
+                    <section class="difficulty-section">
+                        <mat-checkbox class="difficultyMargin" [(ngModel)]="difficultyOne">1</mat-checkbox>
+                        <mat-checkbox class="difficultyMargin" [(ngModel)]="difficultyTwo">2</mat-checkbox>
+                        <mat-checkbox class="difficultyMargin" [(ngModel)]="difficultyThree">3</mat-checkbox>
+                    </section>
+                <hr>
+                    
                 </div>
-                <hr>
-
 
 
                 <div class="filterCognitiveLevel">
-                    Question Cognitive Level:
+                    <b>Question Cognitive Level:</b>
                     <br>
                     <section>
                         <mat-checkbox class="difficultyMargin" [(ngModel)]="cognitiveRemembering">Remembering</mat-checkbox>
@@ -106,12 +110,17 @@
                         <mat-checkbox class="difficultyMargin" [(ngModel)]="cognitiveEvaluating">Evaluating</mat-checkbox>
                         <mat-checkbox class="difficultyMargin" [(ngModel)]="cognitiveCreating">Creating</mat-checkbox>
                     </section>
-                    <hr>
+                    
                 </div>
 
                 <hr>
+                <div class="submissionBtn">
+                    <button class="btn btnSize" (click)="onSubmit()"><b>Submit</b></button>
+                </div>
+                
+                
 
-                <div class="filterTopicPick">
+                <!--<div class="filterTopicPick">
                     Topics
                     <form class="example-form">
                         <mat-form-field class="example-full-width">
@@ -120,13 +129,12 @@
                     </form>
                 </div>
 
-                <hr>
+                <hr>-->
             </div>
+            
         </div>
 
-        <div class="submissionBtn">
-            <button class="btn btnSize" (click)="onSubmit()">Submit</button>
-        </div>
+        
 
 
 

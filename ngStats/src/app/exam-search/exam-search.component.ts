@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { Question } from '../Question';
 
 @Component({
   selector: 'app-exam-search',
@@ -6,8 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./exam-search.component.scss']
 })
 export class ExamSearchComponent implements OnInit {
-
-  ngOnInit() {
-  }
+    results;
+    constructor(private dataService: DataService) { 
+      //get all question prompts from data service, add to options
+      
+       this.dataService.getQuestions().subscribe((data: Question[][]) => {this.results = data;
+            });
+    }
+      
+    
+    ngOnInit() {
+   }
 
 }

@@ -7,7 +7,7 @@ import { MatPaginator, MatSort, MatTableDataSource, MatTooltip, TooltipPosition 
 import { ExamDataService } from '../exam-data.service';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-//import 'rxjs/add/observable/of';
+
 
 
 @Injectable({
@@ -21,6 +21,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class QuestionTableComponent implements OnInit, AfterViewInit {
 
    QID:string;
+   
 
   //  dataStream = new BehaviorSubject<DataTableItem[]>(this.dataService.getResult());
     
@@ -38,8 +39,6 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
   constructor(private dataService: DataService, private QIDService: ExamDataService, private changeDetectorRefs: ChangeDetectorRef) {
       //i commented this out but im not sure what it did, or if it did anything. if issues, uncomment
     //this.dataSource = dataService.results;
-    this.dataService.getQuestions().subscribe((data: Question[]) => {this.results = data;});
-    
     
    
   }
@@ -55,7 +54,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
      
-
+     this.dataService.getQuestions().subscribe((data: Question[]) => {this.results = data;});
      this.dataSource = new MatTableDataSource<Question>(this.results);
       
       this.getResults();
@@ -155,8 +154,7 @@ export class QuestionTableComponent implements OnInit, AfterViewInit {
     
   public updateTable(){
       //console.log(this.results); null
-      let update = this.getResults();
-    
+      let update = this.getResults();    
 
       //commented out to avoid errors
       //this.dataSource = new MatTableDataSource(this.results);

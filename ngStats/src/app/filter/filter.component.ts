@@ -41,14 +41,16 @@ export class FilterComponent implements OnInit, AfterViewInit {
     selectedExam = false;
     //selectedExams;
     examChoice; //true is all exams, false is my exams
-    multiChoice = true;
-    programming = false;
     difficultyOne = false;
     difficultyTwo = false;
     difficultyThree = false;
+    multipleChoice = false;
+    programming = false;
     pickerStart = false;
-    dateStart = new FormControl(new Date());
-    dateEnd   = new FormControl(new Date());
+    
+    //start dates where you choose, should implement findEarliestDate in DataService
+    dateStart = new FormControl(new Date("1/1/2000"));
+    dateEnd = new FormControl(new Date());
     cognitiveRemembering = false;
     cognitiveAnalyzing = false;
     cognitiveApplying = false;
@@ -114,6 +116,8 @@ export class FilterComponent implements OnInit, AfterViewInit {
       console.log(array);
       this.options = array;
       
+      
+      
    //get all question prompts from data service, add to options
       
       //for autofill
@@ -123,6 +127,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
         map(value => typeof value === 'string' ? value : value.name),
         map(name => name ? this._filter(name) : this.options.slice())
       ); 
+        
       
       
       
@@ -130,7 +135,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit() {
-    
+    this.dataService.initService();
   }
   
   
@@ -219,18 +224,20 @@ export class FilterComponent implements OnInit, AfterViewInit {
           this.filters.push('');
       }
       
-      //get question type
-      //multi is t, programming is false
-      if(this.selectedType == true){
-          this.filters.push("multichoice");
+      
+      //get question type      
+      //if they are true, look for them; if false, no
+      if(this.multipleChoice){
+        this.filters.push(this.multipleChoice);
       }
-      else if(this.selectedType == false){
-          //it is programming,
-          this.filters.push("programming");
-      }
-      //need 3rd case, none selected
       else{
-        this.filters.push(0);
+          this.filters.push(false);
+      }
+      if(this.programming){
+        this.filters.push(this.programming);
+      }
+      else{
+          this.filters.push(false);
       }
       
       //get exam difficulty
@@ -258,6 +265,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
       if(this.dateStart){
         //start
         this.filters.push(this.dateStart.value);
+        console.log(this.dateStart.value);
       }
       else{
           //shouldnt happen
@@ -267,6 +275,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
       if(this.dateEnd){
           //end
         this.filters.push(this.dateEnd.value);
+        console.log(this.dateEnd.value);
       }
       else{
           //shouldnt happen
