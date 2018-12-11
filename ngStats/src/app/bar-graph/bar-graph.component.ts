@@ -1,12 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { ExamDataService } from '../exam-data.service';
+import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
+
+
+
+@Injectable({
+  providedIn: 'root',
+})
 
 @Component({
   selector: 'app-bar-graph',
   templateUrl: './bar-graph.component.html',
   styleUrls: ['./bar-graph.component.scss']
 })
-export class BarGraphComponent {
+
+export class BarGraphComponent implements OnInit {
   title ='Percentage Correct by Question Number';
+  questionNums: Number[] = [];
+  questionData: Number[] = [];
+ 
+  constructor(private dataService: DataService){
+    this.dataService.currentNums.subscribe(questionNums => {this.questionNums = questionNums;});
+    this.dataService.currentData.subscribe(questionData => {this.questionData = questionData;});
+  }
+  
+  ngOnInit(){
+    this.dataService.currentNums.subscribe(questionNums => {this.questionNums = questionNums, this.barChartLabels = this.questionNums;});
+    this.dataService.currentData.subscribe(questionData => {this.questionData = questionData, this.barChartData = [{data: this.questionData, label: 'Average Percent Correct'}];});
+ 
+  }
+  
+  
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -22,7 +48,7 @@ export class BarGraphComponent {
           },
           scaleLabel: {
           display: true,
-          labelString: 'Percent Correct'
+          labelString: 'Average Percent Correct'
           }
         }
       ],
@@ -30,18 +56,19 @@ export class BarGraphComponent {
         {
           scaleLabel: {
           display: true,
-          labelString: 'Question Number'
+          labelString: 'Question ID'
           }
         }
       ]
     }
   };
-  public barChartLabels:string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  
+  public barChartLabels:Number[] = this.questionNums;
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
 
   public barChartData:any[] = [
-    {data: [65, 85, 80, 68, 72, 55, 75, 62, 88, 83], label: 'Percent Correct by Question Number'}
+    {data: this.questionData, label: 'Average Percent Correct'}
   ];
 
   // events
@@ -55,5 +82,7 @@ export class BarGraphComponent {
 
   public randomize():void {
   }
+  
+  
 }
 

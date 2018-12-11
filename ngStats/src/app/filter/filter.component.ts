@@ -98,14 +98,15 @@ export class FilterComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
   
-    this.dataService.getQuestions().subscribe((data: Question[][]) => {this.results = data;
-    });
+        this.dataService.getQuestions().subscribe((data: Question[][]) => {this.results = data;
+        });
     
       var array = new Array<User>();
       var x = this.dataService.getTitlesForFilterAutotype();
       var loopLength = x.length;
        console.log(loopLength);
       while(loopLength--){
+        console.log(x[loopLength].questionStr);
          array.push({name: x[loopLength].questionStr}); //this.options.push(x[loopLength].questionStr);
          console.log(loopLength);
          console.log(x[loopLength].questionStr);
