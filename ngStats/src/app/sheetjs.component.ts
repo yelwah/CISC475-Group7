@@ -5,7 +5,8 @@ import { Question } from './Question';
 import { ReadVarExpr } from '@angular/compiler';
 
 
-
+//commented out because clear() method was removed in working version
+/*
 @Component({
 	selector: 'sheetjs',
 	template: `<nav class="navbar navbar-expand-lg navbar-light" style="background-color: ghostwhite;">
@@ -29,6 +30,32 @@ import { ReadVarExpr } from '@angular/compiler';
 </div>
 	`
 })
+*/
+
+@Component({
+	selector: 'sheetjs',
+	template: `<nav class="navbar navbar-expand-lg navbar-light" style="background-color: ghostwhite;">
+	<a class="navbar-brand" [routerLink]="['']">Exam Statistics Search Tool</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	  <span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	  <ul class="navbar-nav mr-auto">
+		<li class="nav-item">
+		  <a class="nav-link" [routerLink]="['']">Exam Search<span class="sr-only">(current)</span></a>
+		</li> 
+	  </ul>
+	</div>
+	<button>clear</button>
+	<input type="file" (change)="onFileChange($event)" multiple="false" name="Input" >
+</nav>
+<div id="container">
+	<router-outlet>
+	</router-outlet>
+</div>
+	`
+})
+
 
 export class SheetJSComponent {
 	static data: Question[][] = null;
@@ -58,6 +85,7 @@ export class SheetJSComponent {
 		};
 		reader.readAsBinaryString(target.files[0]);
 	}
+    //method reloads page - does not work
 	clear(): void{
 		SheetJSComponent.data = null;
 	}
