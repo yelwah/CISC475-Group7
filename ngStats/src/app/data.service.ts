@@ -6,9 +6,6 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Question } from './Question';
 import { SheetJSComponent } from './sheetjs.component';
 
-
-type AOA = any[][];
-
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +34,7 @@ export class DataService implements OnInit {
     currentNums = this.qnumsource.asObservable();
     currentData = this.qdatasource.asObservable();
 
-    importData: AOA;
+    importData: Question[][];
 
     dataSourceChange: Subject<any> = new Subject<boolean>();
   
@@ -63,7 +60,7 @@ export class DataService implements OnInit {
     
     ngOnInit(){
 /*
-        this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
+//        this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
        
         this.dataSourceChange.subscribe((value) => {
             this.arr = value     
@@ -355,7 +352,15 @@ export class DataService implements OnInit {
     }
   
     setArr() {
-        this.arr = (Object.values(this.results2)[0]);
+        this.importData = SheetJSComponent.getData();
+        if(this.importData == null)
+        {
+            this.arr = (Object.values(this.results2)[0]);
+        }
+        else
+        {
+            this.arr = (Object.values(this.importData)[0]);
+        }
     }
 
     getQuestionConfig():Number[]{
@@ -381,6 +386,12 @@ export class DataService implements OnInit {
      getTitlesForFilterAutotype(){
         this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
 
+        this.importData = SheetJSComponent.getData();
+        if(this.importData != null)
+        {
+            this.results = this.importData;
+        }
+        
         this.dataSourceChange.subscribe((value) => {
             this.arr = value    
         });

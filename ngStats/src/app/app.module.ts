@@ -71,6 +71,7 @@ import { Component } from '@angular/core';
     QuestionStatsComponent,
     QuestionPageGraphFilterComponent,
     QuestionPageGraphComponent,
+    SheetJSComponent,
   ],
   imports: [
     ChartsModule,
@@ -82,7 +83,7 @@ import { Component } from '@angular/core';
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [TableService],
   bootstrap: [AppComponent]

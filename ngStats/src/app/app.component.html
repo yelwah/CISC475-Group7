@@ -11,7 +11,8 @@
 		</li> 
 	  </ul>
 	</div>
-	<input type="file" (change)="onFileChange($event)" multiple="false" name="Input" />
+	<button (click)="export()">export</button>
+	<input type="file" (change)="onFileChange($event)" multiple="false" name="Input" >
 </nav>
 <div id="container">
 	<router-outlet>
