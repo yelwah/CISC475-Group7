@@ -25,3 +25,11 @@
 	+Currently freezes because it can't save. Clear will unfreeze.
 -Add compatibility for lab data
 	+Extend test frameworks to labs since the data format is similar. 
+	
+#Contributors 
+-Olivia Liepa <oliepa@udel.edu>
+-Jared Hawley <jhawley@udel.edu>,
+-Konark Christian <konark@udel.edu>,
+-Kevin Doak <kdoak@udel.edu>,
+-Nonso Iwu <nonsoiwu@udel.edu>,
+-Brian Kungl <bkungl@udel.edu>
