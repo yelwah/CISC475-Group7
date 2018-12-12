@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Question } from './Question';
-import { SheetJSComponent } from './sheetjs.component';
+//import { SheetJSComponent } from './sheetjs.component';
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +66,7 @@ export class DataService implements OnInit {
             this.arr = value     
         });
 
-        this.importData = SheetJSComponent.getData();
+        //this.importData = SheetJSComponent.getData();
         if(this.importData == null)
         {
             
@@ -352,7 +352,7 @@ export class DataService implements OnInit {
     }
   
     setArr() {
-        this.importData = SheetJSComponent.getData();
+        //this.importData = SheetJSComponent.getData();
         if(this.importData == null)
         {
             this.arr = (Object.values(this.results2)[0]);
@@ -386,7 +386,7 @@ export class DataService implements OnInit {
      getTitlesForFilterAutotype(){
         this.http.get(this.url).subscribe((data: Question[][]) => {this.results = data;});
 
-        this.importData = SheetJSComponent.getData();
+        //this.importData = SheetJSComponent.getData();
         if(this.importData != null)
         {
             this.results = this.importData;

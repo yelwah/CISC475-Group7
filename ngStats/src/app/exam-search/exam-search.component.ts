@@ -9,7 +9,6 @@ import { Question } from '../Question';
 })
 export class ExamSearchComponent {
     results;
-    reload = false;
     constructor(private dataService: DataService) { 
       //get all question prompts from data service, add to options
       

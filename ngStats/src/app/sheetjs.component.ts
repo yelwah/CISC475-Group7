@@ -5,7 +5,7 @@ import { Question } from './Question';
 import { ReadVarExpr } from '@angular/compiler';
 
 
-//commented out because clear() method was removed in working version
+//commented out because clear() method is necessary 
 /*
 @Component({
 	selector: 'sheetjs',
@@ -32,6 +32,7 @@ import { ReadVarExpr } from '@angular/compiler';
 })
 */
 
+//removed function calls which force recompiling of site page
 @Component({
 	selector: 'sheetjs',
 	template: `<nav class="navbar navbar-expand-lg navbar-light" style="background-color: ghostwhite;">
@@ -47,7 +48,7 @@ import { ReadVarExpr } from '@angular/compiler';
 	  </ul>
 	</div>
 	<button>clear</button>
-	<input type="file" (change)="onFileChange($event)" multiple="false" name="Input" >
+	<input type="file" multiple="false" name="Input" >
 </nav>
 <div id="container">
 	<router-outlet>
@@ -87,10 +88,10 @@ export class SheetJSComponent {
 	}
     //method reloads page - does not work
 	clear(): void{
-		SheetJSComponent.data = null;
+		//SheetJSComponent.data = null;
 	}
 
-	static getData(): Question[][]{
+	static getData(){
 		return this.data;
 	}
 }
